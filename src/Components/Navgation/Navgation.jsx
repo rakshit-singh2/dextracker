@@ -6,7 +6,7 @@ const Navigation = () => {
     <div id="sidebar-wrapper" className="sidebar-wrapper">
       <div className="sidebar-heading">
         <Link to="/">
-          <img id="logo" src="public/img/logo.png" alt="Logo" />
+          <img id="logo" src="img/logo.png" alt="Logo" />
         </Link>
 
       </div>
@@ -74,7 +74,7 @@ const Navigation = () => {
             </Link>
           </li>
 
-          <li class="nav-item has-submenu">
+          <li className="nav-item has-submenu">
            <a className="nav-link d-flex justify-content-between align-items-center" href="#">
               <span className="d-flex align-items-center gap-2">
                 <i className="fa fa-list-ul"></i>
@@ -85,14 +85,14 @@ const Navigation = () => {
               </span>
             </a>
             <ul className="submenu collapse ps-2">
-             <li class="mt-2">
-                 <a class="nav-link" href="#">
-                  <img src={`public/img/crypto/bitcoin.png`} alt="" /> Bitcoin (BTC)
+             <li className="mt-2">
+                 <a className="nav-link" href="#">
+                  <img src={`img/crypto/bitcoin.png`} alt="" /> Bitcoin (BTC)
                   </a>
               </li>
-              <li class="mt-2">
-                 <a class="nav-link" href="#">
-                  <img src={`public/img/crypto/binance.png`} alt="" /> Binance (BNB)
+              <li className="mt-2">
+                 <a className="nav-link" href="#">
+                  <img src={`img/crypto/binance.png`} alt="" /> Binance (BNB)
                   </a>
               </li>
 
