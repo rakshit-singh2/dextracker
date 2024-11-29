@@ -13,13 +13,6 @@ const Navigation = () => {
       <nav className="sidebar mb-4">
         <ul className="nav flex-column" id="nav_accordion">
           <li className="nav-item">
-            <form className="d-flex align-items-center search-form p-2" role="search">
-              <input type="text" placeholder="Search..." aria-label="Search" />
-              <span className="material-symbols-outlined">search</span>
-            </form>
-          </li>
-
-          <li className="nav-item">
             <Link className="nav-link d-flex gap-2 align-items-center" to="/watchlist">
               <i className="fa fa-star"></i>
               <span className="fw-semibold">Watchlist</span>
@@ -53,12 +46,6 @@ const Navigation = () => {
             <Link className="nav-link d-flex gap-2 align-items-center" to="/portfolio">
               <i className="fa fa-suitcase"></i>
               <span className="fw-semibold">Portfolio</span>
-            </Link>
-          </li>
-          <li className="nav-item">
-            <Link className="nav-link d-flex gap-2 align-items-center" to="/advertise">
-              <i className="fa fa-window-maximize"></i>
-              <span className="fw-semibold">Advertise</span>
             </Link>
           </li>
           <li className="nav-item">
