@@ -78,7 +78,14 @@ const List = () => {
   // console.log({ loading, error, data });
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
-  // console.log(data.pools);
+  const handleNext = async () => {
+    setPage((prev) => prev + 1);
+  };
+  
+  const handlePrevious = async () => {
+    setPage((prev) => (prev > 0 ? prev - 1 : prev));
+  };
+
   return (
     <div id="page-content-wrapper" className="page-content-wrapper">
       <div className="centercontent container-fluid main-content px-2">
@@ -137,7 +144,7 @@ const List = () => {
                   {
                     data && data.pools && data.pools.length > 0 ? (
                       data.pools.map((pool, index) => (
-                        <TokenRow index={index} key={index} pool={pool} />
+                        <TokenRow key={index} pool={pool} />
                       ))
                     ) : (
                       <tr>
