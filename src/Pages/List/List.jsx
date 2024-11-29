@@ -81,7 +81,7 @@ const List = () => {
   const handleNext = async () => {
     setPage((prev) => prev + 1);
   };
-  
+
   const handlePrevious = async () => {
     setPage((prev) => (prev > 0 ? prev - 1 : prev));
   };
@@ -122,8 +122,8 @@ const List = () => {
             </div>
 
 
-            <div className="pb-2 pt-3 price-table">
-              <table>
+            <div className="pb-2 pt-3 price-table scrollme">
+              <table className="table table-responsive">
                 <thead>
                   <tr>
                     <th className="fw-bold">Token</th>
@@ -154,6 +154,13 @@ const List = () => {
                   }
                 </tbody>
               </table>
+              <div className="buttongropu">
+                <div>
+                  Page {page}
+                </div>
+                <button className="previous" onClick={handlePrevious}>&laquo; Previous  </button>
+                <button className="next" onClick={handleNext}>Next  &raquo;</button>
+              </div>
             </div>
           </div>
         </div>
