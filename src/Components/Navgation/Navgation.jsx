@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const Navigation = () => {
+const Navigation = ({ setChain, setSwap }) => {
   return (
     <div id="sidebar-wrapper" className="sidebar-wrapper">
       <div className="sidebar-heading">
@@ -55,35 +55,31 @@ const Navigation = () => {
             </Link>
           </li>
           <li className="nav-item">
-            <Link className="nav-link d-flex gap-2 align-items-center" to="/api">
-              <i className="fa fa-code"></i>
-              <span className="fw-semibold">API</span>
-            </Link>
+            <button
+              className="nav-link d-flex gap-2 align-items-center"
+              onClick={() => {setChain('1'); setSwap('UniswapV3')}}
+            >
+              <img src="img/crypto/etherium.png" alt="Ethereum logo" style={{ width: "22px", height: "22px" }} />
+              <span className="fw-semibold">Etherium</span>
+            </button>
           </li>
-
-          <li className="nav-item has-submenu">
-           <a className="nav-link d-flex justify-content-between align-items-center" href="#">
-              <span className="d-flex align-items-center gap-2">
-                <i className="fa fa-list-ul"></i>
-                <span className="fw-semibold">More</span>
-              </span>
-              <span className="material-symbols-outlined">
-                arrow_drop_down
-              </span>
-            </a>
-            <ul className="submenu collapse ps-2">
-             <li className="mt-2">
-                 <a className="nav-link" href="#">
-                  <img src={`img/crypto/bitcoin.png`} alt="" /> Bitcoin (BTC)
-                  </a>
-              </li>
-              <li className="mt-2">
-                 <a className="nav-link" href="#">
-                  <img src={`img/crypto/binance.png`} alt="" /> Binance (BNB)
-                  </a>
-              </li>
-
-            </ul>
+          <li className="nav-item">
+            <button
+              className="nav-link d-flex gap-2 align-items-center"
+              onClick={() => {setChain('42161'); setSwap('UniswapV3')}}
+            >
+              <img src="img/crypto/arbtrum.svg" alt="Arbitrum logo" style={{ width: "22px", height: "22px" }}  />
+              <span className="fw-semibold">Arbitrum</span>
+            </button>
+          </li>
+          <li className="nav-item">
+            <button
+              className="nav-link d-flex gap-2 align-items-center"
+              onClick={() => {setChain('42161'); setSwap('UniswapV3')}}
+            >
+              <img src="img/crypto/matic.svg" alt="Polygon logo" style={{ width: "22px", height: "22px" }}  />
+              <span className="fw-semibold">Polygon</span>
+            </button>
           </li>
 
           <li className="nav-item sociallink">
