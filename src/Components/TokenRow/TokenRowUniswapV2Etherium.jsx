@@ -9,7 +9,7 @@ const GET_POSITIONS = gql`
   }
 `;
 
-const TokenRow = ({ pool }) => {
+const TokenRowUniswapEtherium = ({ pool }) => {
   const { loading, error, data } = useQuery(GET_POSITIONS, {
     variables: { poolId: pool.id },
   });
@@ -113,4 +113,4 @@ const TokenRow = ({ pool }) => {
   );
 };
 
-export default TokenRow;
+export default TokenRowUniswapEtherium;

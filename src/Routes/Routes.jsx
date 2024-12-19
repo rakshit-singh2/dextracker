@@ -1,6 +1,8 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "../App";
-import List from "../Pages/List/List";
+import ListUniswapV3Etherium from "../Pages/List/ListUniswapV3Etherium";
+import ListUniswapV2Etherium from "../Pages/List/ListUniswapV2Etherium";
+import ListPancakeSwapEtherium from "../Pages/List/ListPancakeSwapEtherium";
 import Watchlist from "../Pages/Watchlist/Watchlist";
 import Alerts from "../Pages/Alerts/Alerts";
 import Multicharts from "../Pages/Multicharts/Multicharts";
@@ -14,7 +16,10 @@ export const router = createBrowserRouter([
     path: '/',
     element: <App />,
     children: [
-      { path: '', element: <List /> },
+      { index: true, element: <ListUniswapV3Etherium /> }, // Default route
+      { path: 'uniswapv3-etherium', element: <ListUniswapV3Etherium /> },
+      { path: 'uniswapv2-etherium', element: <ListUniswapV2Etherium /> },
+      { path: 'pancakeswap-etherium', element: <ListPancakeSwapEtherium/> },
       { path: 'watchlist', element: <Watchlist /> },
       { path: 'alerts', element: <Alerts /> },
       { path: 'multicharts', element: <Multicharts /> },

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useQuery, gql } from '@apollo/client';
 import TokenRowUniswapEtherium from "../../Components/TokenRow/TokenRowUniswapV3Etherium";
 
-const GainersLosers = () => {
+const ListUniswapV3Etherium = () => {
   const GET_POOLS = gql`
   query GetPools($first: Int!, $skip: Int!) {
     pools(first: $first, skip: $skip, orderDirection: desc) {
@@ -71,7 +71,7 @@ const GainersLosers = () => {
   const { loading, error, data } = useQuery(GET_POOLS, {
     variables: { first, skip },
   });
-  // console.log({ loading, error, data });
+  console.log({ loading, error, data });
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
   const handleNext = async () => {
@@ -88,17 +88,17 @@ const GainersLosers = () => {
         <div className="col-12">
           <div className="mainchart px-3 px-md-4 py-3 py-lg-4 ">
 
-            <div className="lang-select d-flex justify-content-left">
+            <div className="sticky-top lang-select d-flex justify-content-left">
 
-              <div className="nice-select" tabIndex="0">
-                <span className="current"><i className="fa fa-clock-o" aria-hidden="true"></i> Last 24 hours</span>
-                <ul className="list">
-                  <li data-value="english" className="option selected">English</li>
-                  <li data-value="bangla" className="option">Bangla</li>
-                  <li data-value="arabic" className="option">Arabic</li>
-                </ul>
-              </div>
-
+            <div class="dropdown">
+              <button class="gcolor nav-link outline-btn-big py-2 active dropbtn"><i class="fa fa-clock-o" aria-hidden="true"></i> Last 24 hours <i class="fa fa-angle-down"></i></button>
+              <div class="dropdown-content">
+              <a href="#">English</a>
+              <a href="#">Bangla</a>
+              <a href="#">Arabic</a>
+            </div>
+            </div>
+           
 
               <button className="gcolor nav-link outline-btn-big py-2 active" id="pills-deep-tab" data-bs-toggle="pill" data-bs-target="#exchange" type="button" role="tab" aria-selected="true"><i className="fa fa-fire" aria-hidden="true"></i> Trending
                 <span><a href="#">5M</a></span>
@@ -106,17 +106,16 @@ const GainersLosers = () => {
                 <span><a href="#">6H</a></span>
                 <span><a href="#">24H</a></span>
               </button>
-              <button className="top gcolor nav-link outline-btn-big py-2 active" id="pills-deep-tab" data-bs-toggle="pill" data-bs-target="#exchange" type="button" role="tab" aria-selected="true"><i className="fa fa-arrow-down" aria-hidden="true"></i> Losers</button>
+              <button className="top gcolor nav-link outline-btn-big py-2 active" id="pills-deep-tab" data-bs-toggle="pill" data-bs-target="#exchange" type="button" role="tab" aria-selected="true"><i className="fa fa-bar-chart" aria-hidden="true"></i> Top</button>
+              <button className="top gcolor nav-link outline-btn-big py-2 active" id="pills-deep-tab" data-bs-toggle="pill" data-bs-target="#exchange" type="button" role="tab" aria-selected="true"><i className="fa fa-arrow-up" aria-hidden="true"></i> Gainers</button>
 
-              <button className="top gcolor nav-link outline-btn-big py-2 active" id="pills-deep-tab" data-bs-toggle="pill" data-bs-target="#exchange" type="button" role="tab" aria-selected="true"><i className="fa fa-bar-chart" aria-hidden="true"></i><b> Volume  </b>$100K</button>
+              <button className="top gcolor nav-link outline-btn-big py-2 active" id="pills-deep-tab" data-bs-toggle="pill" data-bs-target="#exchange" type="button" role="tab" aria-selected="true"><i className="fa fa-rocket" aria-hidden="true"></i> New Pairs</button>
 
-              
-
-              <button className="top gcolor nav-link outline-btn-big py-2 active" id="pills-deep-tab" data-bs-toggle="pill" data-bs-target="#exchange" type="button" role="tab" aria-selected="true"><i className="fa fa-rocket" aria-hidden="true"></i> <b>Liquidity</b> $250K</button>
-
-             
+              <button className="top gcolor nav-link outline-btn-big py-2 active" id="pills-deep-tab" data-bs-toggle="pill" data-bs-target="#exchange" type="button" role="tab" aria-selected="true"><i className="fa fa-diamond" aria-hidden="true"></i> Rank by: <i className="fa fa-arrow-down"></i> Trending 6H</button>
 
               <button className="top gcolor nav-link outline-btn-big py-2 active" id="pills-deep-tab" data-bs-toggle="pill" data-bs-target="#exchange" type="button" role="tab" aria-selected="true"><i className="fa fa-sliders" aria-hidden="true"></i> Filters</button>
+
+              <button className="setting top gcolor nav-link outline-btn-big py-2 active" id="pills-deep-tab" data-bs-toggle="pill" data-bs-target="#exchange" type="button" role="tab" aria-selected="true"><i className="fa fa-gear" aria-hidden="true"></i> </button>
 
             </div>
 
@@ -169,5 +168,4 @@ const GainersLosers = () => {
   );
 };
 
-export default GainersLosers;
-
+export default ListUniswapV3Etherium;

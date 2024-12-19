@@ -9,8 +9,9 @@ import { clients } from "./constants/constants";
 const App = () => {
   const [chain, setChain] = useState('1');
   const [swap, setSwap] = useState("UniswapV3");
-
+  console.log({ chain, swap })
   const selectedClient = clients[chain]?.[swap];
+  console.log({ selectedClient })
   if (!selectedClient) {
     console.error(`Apollo client not found for chain ${chain} and swap ${swap}`);
   }
