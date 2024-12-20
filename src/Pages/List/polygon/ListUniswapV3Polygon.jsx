@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useQuery, gql } from '@apollo/client';
-import TokenRowUniswapEtherium from "../../Components/TokenRow/TokenRowUniswapV3Etherium";
+import TokenRowUniswapV3Polygon from "../../../Components/TokenRow/polygon/TokenRowUniswapV3Polygon";
 
-const ListUniswapV3Etherium = () => {
+const ListUniswapV3Polygon = () => {
   const GET_POOLS = gql`
   query GetPools($first: Int!, $skip: Int!) {
     pools(first: $first, skip: $skip, orderDirection: desc) {
@@ -142,7 +142,7 @@ const ListUniswapV3Etherium = () => {
                   {
                     data && data.pools && data.pools.length > 0 ? (
                       data.pools.map((pool, index) => (
-                        <TokenRowUniswapEtherium key={index} pool={pool} />
+                        <TokenRowUniswapV3Polygon key={index} pool={pool} />
                       ))
                     ) : (
                       <tr>
@@ -168,4 +168,4 @@ const ListUniswapV3Etherium = () => {
   );
 };
 
-export default ListUniswapV3Etherium;
+export default ListUniswapV3Polygon;

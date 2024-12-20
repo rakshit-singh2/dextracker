@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useQuery, gql } from '@apollo/client';
-import TokenRowPancakeSwapEtherium from "../../Components/TokenRow/TokenRowPancakeSwapEtherium";
+import TokenRowPancakeSwapEtherium from "../../Components/TokenRow/etherium/TokenRowPancakeSwapEtherium";
 
 const ListPancakeSwapEtherium = () => {
   const GET_POOLS = gql`

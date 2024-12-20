@@ -7,8 +7,7 @@ import { ApolloProvider } from "@apollo/client";
 import { clients } from "./constants/constants";
 
 const App = () => {
-  const [chain, setChain] = useState('etherium');  // Default to Ethereum chain
-  const [swap, setSwap] = useState("uniswapv3");  // Default to UniswapV3
+
   const [selectedClient, setSelectedClient] = useState(null);
   const location = useLocation();
 
@@ -18,27 +17,24 @@ const App = () => {
 
     if (pathSegments.length === 2) {
       const [swap, chain] = pathSegments;
-      setChain(swap);
-      setSwap(chain);
+      console.log({ swap, chain })
+      const client = clients[chain].graph?.[swap];
+      console.log({client})
+      if (client) {
+        setSelectedClient(client);
+      } else {
+        console.error(`Apollo client not found for chain ${chain} and swap ${swap}`);
+      }
     } else {
       console.log("Path format is incorrect");
     }
   }, [location]);
 
-  useEffect(() => {
-    const client = clients[chain].graph?.[swap];
-    if (client) {
-      setSelectedClient(client);  // Update client when chain or swap changes
-    } else {
-      console.error(`Apollo client not found for chain ${chain} and swap ${swap}`);
-    }
-  }, [location]); // Re-run when chain or swap changes
-
   return (
     <>
       <header>
-        <Navgation/>
-        <Header/>
+        <Navgation />
+        <Header />
       </header>
 
       {/* Only render ApolloProvider if a valid client is selected */}

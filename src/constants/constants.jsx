@@ -40,7 +40,7 @@ const optimism = {
 }
 
 const solana = {
-    'Raydium': new ApolloClient({
+    'raydium': new ApolloClient({
         cache: new InMemoryCache(),
         uri: "https://programs.shyft.to/v0/graphql/?api_key=qFXt-buNCCIgGBTq&network=mainnet-beta",
     })
@@ -67,6 +67,26 @@ const arbitrum = {
     })
 }
 export const clients = {
+    'arbitrum': { 
+        'graph': arbitrum,
+        'icon': 'https://icons.llamao.fi/icons/chains/rsz_arbitrum.jpg',
+    },
+    'avalanche': { 
+        'graph': avalanche,
+        'icon': 'https://icons.llamao.fi/icons/chains/rsz_avalanche.jpg',
+    },
+    'base': { 
+        'graph': base,
+        'icon': 'https://icons.llamao.fi/icons/chains/rsz_base.jpg',
+    },
+    'bsc': { 
+        'graph': bsc,
+        'icon': 'https://icons.llamao.fi/icons/chains/rsz_binance.jpg',
+    },
+    'cello': { 
+        'graph': cello,
+        'icon': 'https://icons.llamao.fi/icons/chains/rsz_celo.jpg',
+    },
     'etherium': { 
         'graph': etherium,
         'icon': 'img/crypto/etherium.png',
@@ -75,29 +95,9 @@ export const clients = {
         'graph': optimism,
         'icon': 'https://icons.llamao.fi/icons/chains/rsz_optimism.jpg',
     },
-    'bsc': { 
-        'graph': bsc,
-        'icon': 'https://icons.llamao.fi/icons/chains/rsz_binance.jpg',
-    },
     'polygon': { 
         'graph': polygon,
         'icon': 'https://icons.llamao.fi/icons/chains/rsz_polygon.jpg',
-    },
-    'base': { 
-        'graph': base,
-        'icon': 'https://icons.llamao.fi/icons/chains/rsz_base.jpg',
-    },
-    'avalanche': { 
-        'graph': avalanche,
-        'icon': 'https://icons.llamao.fi/icons/chains/rsz_avalanche.jpg',
-    },
-    'cello': { 
-        'graph': cello,
-        'icon': 'https://icons.llamao.fi/icons/chains/rsz_celo.jpg',
-    },
-    'arbitrum': { 
-        'graph': arbitrum,
-        'icon': 'https://icons.llamao.fi/icons/chains/rsz_arbitrum.jpg',
     },
     'solana': { 
         'graph': solana,

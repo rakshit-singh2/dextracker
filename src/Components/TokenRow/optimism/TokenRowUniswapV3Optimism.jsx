@@ -9,10 +9,10 @@ const GET_POSITIONS = gql`
   }
 `;
 
-const TokenRowUniswapEtherium = ({ pool }) => {
-  const { loading, error, data } = useQuery(GET_POSITIONS, {
-    variables: { poolId: pool.id },
-  });
+const TokenRowUniswapV3Optimism= ({ pool }) => {
+  // const { loading, error, data } = useQuery(GET_POSITIONS, {
+  //   variables: { poolId: pool.id },
+  // });
 
   const currentTimestamp = Math.floor(Date.now() / 1000);
 
@@ -23,23 +23,23 @@ const TokenRowUniswapEtherium = ({ pool }) => {
   const days = Math.floor(((ageInSeconds % (365.25 * 24 * 3600)) % (30.44 * 24 * 3600)) / (24 * 3600));
   const hours = Math.floor(((ageInSeconds % (365.25 * 24 * 3600)) % (30.44 * 24 * 3600)) % (24 * 3600) / 3600);
 
-  if (loading)
-    return (
-      <tr>
-        <td colSpan="12" style={{ textAlign: "center" }}>
-          Loading...
-        </td>
-      </tr>
-    );
+  // if (loading)
+  //   return (
+  //     <tr>
+  //       <td colSpan="12" style={{ textAlign: "center" }}>
+  //         Loading...
+  //       </td>
+  //     </tr>
+  //   );
 
-  if (error)
-    return (
-      <tr>
-        <td colSpan="12" style={{ textAlign: "center", color: "red" }}>
-          Error: {error.message}
-        </td>
-      </tr>
-    );
+  // if (error)
+  //   return (
+  //     <tr>
+  //       <td colSpan="12" style={{ textAlign: "center", color: "red" }}>
+  //         Error: {error.message}
+  //       </td>
+  //     </tr>
+  //   );
 
   // Calculate fee differences
   function calculateFeeDifferences(poolHourData, currentTimestamp) {
@@ -68,8 +68,8 @@ const TokenRowUniswapEtherium = ({ pool }) => {
   const differences = calculateFeeDifferences(pool.poolHourData, currentTimestamp);
 
   // Unique Owners
-  const owners = data.positions.map((position) => position.owner);
-  const uniqueOwners = new Set(owners);
+  // const owners = data.positions.map((position) => position.owner);
+  // const uniqueOwners = new Set(owners);
 
   // Render differences
   const renderDifference = (value) => {
@@ -102,7 +102,8 @@ const TokenRowUniswapEtherium = ({ pool }) => {
       </td>
       <td>{pool.swaps.length}</td>
       <td>${parseFloat(pool.volumeUSD).toFixed(2)}</td>
-      <td>{uniqueOwners.size}</td>
+      {/* <td>{uniqueOwners.size}</td> */}
+      <td>2</td>
       {renderDifference(differences["5min"])}
       {renderDifference(differences["1h"])}
       {renderDifference(differences["5h"])}
@@ -113,4 +114,4 @@ const TokenRowUniswapEtherium = ({ pool }) => {
   );
 };
 
-export default TokenRowUniswapEtherium;
+export default TokenRowUniswapV3Optimism;
