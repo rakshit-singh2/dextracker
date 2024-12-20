@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useQuery, gql } from '@apollo/client';
-import TokenRowUniswapV3Etherium from "../../../Components/TokenRow/etherium/TokenRowUniswapV3Etherium";
+import TokenRowUniswapV3Etherium from "../../Components/TokenRow/etherium/TokenRowUniswapV3Etherium";
 
 const GainersLosers = () => {
   const GET_POOLS = gql`
