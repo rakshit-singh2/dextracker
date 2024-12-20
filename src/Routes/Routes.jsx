@@ -1,32 +1,30 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, Navigate } from "react-router-dom";
 import App from "../App";
-import ListUniswapV3Etherium from "../Pages/List/ListUniswapV3Etherium";
-import ListUniswapV2Etherium from "../Pages/List/ListUniswapV2Etherium";
-import ListPancakeSwapEtherium from "../Pages/List/ListPancakeSwapEtherium";
-import Watchlist from "../Pages/Watchlist/Watchlist";
-import Alerts from "../Pages/Alerts/Alerts";
-import Multicharts from "../Pages/Multicharts/Multicharts";
-import NewPairs from "../Pages/NewPairs/NewPairs";
-import GainersLosers from "../Pages/GainersLosers/GainersLosers";
-import Portfolio from "../Pages/Portfolio/Portfolio";
-import Api from "../Pages/Api/Api";
+import React, { lazy, Suspense } from "react";
+
+const LazyComponent = (importFunc) => (
+  <Suspense fallback={<div>Loading...</div>}>
+    {React.createElement(lazy(importFunc))}
+  </Suspense>
+);
 
 export const router = createBrowserRouter([
   {
     path: '/',
     element: <App />,
     children: [
-      { index: true, element: <ListUniswapV3Etherium /> }, // Default route
-      { path: 'uniswapv3-etherium', element: <ListUniswapV3Etherium /> },
-      { path: 'uniswapv2-etherium', element: <ListUniswapV2Etherium /> },
-      { path: 'pancakeswap-etherium', element: <ListPancakeSwapEtherium/> },
-      { path: 'watchlist', element: <Watchlist /> },
-      { path: 'alerts', element: <Alerts /> },
-      { path: 'multicharts', element: <Multicharts /> },
-      { path: 'new-pairs', element: <NewPairs /> },
-      { path: 'gainers-losers', element: <GainersLosers /> },
-      { path: 'portfolio', element: <Portfolio /> },
-      { path: 'api', element: <Api /> },
+      { element: <Navigate to={'uniswapv3-etherium'} replace />, index: true },
+      { path: 'uniswapv3-etherium', element: LazyComponent(() => import("../Pages/List/ListUniswapV3Etherium")) },
+      { path: 'uniswapv2-etherium', element: LazyComponent(() => import("../Pages/List/ListUniswapV2Etherium")) },
+      { path: 'pancakeswap-etherium', element: LazyComponent(() => import("../Pages/List/ListPancakeSwapEtherium")) },
+      { path: 'watchlist', element: LazyComponent(() => import("../Pages/Watchlist/Watchlist")) },
+      { path: 'alerts', element: LazyComponent(() => import("../Pages/Alerts/Alerts")) },
+      { path: 'multicharts', element: LazyComponent(() => import("../Pages/Multicharts/Multicharts")) },
+      { path: 'new-pairs', element: LazyComponent(() => import("../Pages/NewPairs/NewPairs")) },
+      { path: 'gainers-losers', element: LazyComponent(() => import("../Pages/GainersLosers/GainersLosers")) },
+      { path: 'portfolio', element: LazyComponent(() => import("../Pages/Portfolio/Portfolio")) },
+      { path: 'api', element: LazyComponent(() => import("../Pages/Api/Api")) },
+      { path: '*', element: <div>404 - Page Not Found</div> },
     ],
   },
 ]);
