@@ -136,19 +136,19 @@ export const clients = {
     },
     'base': {
         'graph': base,
-        'icon': 'https://icons.llamao.fi/icons/chains/rsz_base.jpg',
+        'icon': 'https://dd.dexscreener.com/ds-data/chains/base.png',
     },
     'bsc': {
         'graph': bsc,
-        'icon': 'https://icons.llamao.fi/icons/chains/rsz_binance.jpg',
+        'icon': 'https://dd.dexscreener.com/ds-data/chains/bsc.png',
     },
     'cello': {
         'graph': cello,
-        'icon': 'https://icons.llamao.fi/icons/chains/rsz_celo.jpg',
+        'icon': 'https://dd.dexscreener.com/ds-data/chains/celo.png',
     },
     'optimism': {
         'graph': optimism,
-        'icon': 'https://icons.llamao.fi/icons/chains/rsz_optimism.jpg',
+        'icon': 'https://dd.dexscreener.com/ds-data/chains/optimism.png',
     },
     'polygon': {
         'graph': polygon,
