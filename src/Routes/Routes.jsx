@@ -20,7 +20,7 @@ export const router = createBrowserRouter([
       // Chain etherium
       { path: 'uniswapv3-etherium', element: LazyComponent(() => import("../Pages/List/etherium/ListUniswapV3Etherium")) },
       { path: 'uniswapv2-etherium', element: LazyComponent(() => import("../Pages/List/etherium/ListUniswapV2Etherium")) },
-      { path: 'pancakeswap-etherium', element: LazyComponent(() => import("../Pages/List/etherium/ListPancakeSwapEtherium")) },
+      { path: 'pancakeswapv2-etherium', element: LazyComponent(() => import("../Pages/List/etherium/ListPancakeSwapEtherium")) },
 
       // Chain polygon
       { path: 'uniswapv3-polygon', element: LazyComponent(() => import("../Pages/List/polygon/ListUniswapV3Polygon")) },
