@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useQuery, gql } from '@apollo/client';
 // import TokenRowUniswapV3Polygon from "../../../Components/TokenRow/polygon/TokenRowUniswapV3Polygon";
 
-const ListUniswapV3Polygon = () => {
+const ListRaydiumV1Solana = () => {
   const GET_POOLS = gql`
   query GetPools($first: Int!, $skip: Int!) {
     pools(first: $first, skip: $skip, orderDirection: desc) {
@@ -168,4 +168,4 @@ const ListUniswapV3Polygon = () => {
   );
 };
 
-export default ListUniswapV3Polygon;
+export default ListRaydiumV1Solana;

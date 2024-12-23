@@ -41,7 +41,7 @@ export const router = createBrowserRouter([
       { path: 'uniswapv3-arbitrum', element: LazyComponent(() => import("../Pages/List/arbitrum/ListUniswapV3Arbitrum")) },
 
       // Chain solana
-      { path: 'raydiumv2-solana', element: LazyComponent(() => import("../Pages/List/solana/ListRaydiumV2Solana")) },
+      { path: 'raydiumv1-solana', element: LazyComponent(() => import("../Pages/List/solana/ListRaydiumV1Solana")) },
     ],
   },
   {

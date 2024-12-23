@@ -69,7 +69,7 @@ const optimism = {
 }
 
 const solana = {
-    'raydiumv2': {
+    'raydiumv1': {
         'client': new ApolloClient({
             cache: new InMemoryCache(),
             uri: "https://programs.shyft.to/v0/graphql/?api_key=qFXt-buNCCIgGBTq&network=mainnet-beta",
