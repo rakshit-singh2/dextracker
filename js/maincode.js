@@ -1,10 +1,14 @@
 // Sidebar Toggle
-var el = document.getElementById("wrapper");
-var toggleButton = document.getElementById("menu-toggle");
+var el = document.getElementById("wrapper")??null;
+var toggleButton = document.getElementById("menu-toggle")??null;
 
-toggleButton.onClick = function () {
-  el.classList.toggle("toggled");
-};
+if (toggleButton && el) {
+  toggleButton.onclick = function () {
+    el.classList.toggle("toggled");
+  };
+} else {
+  console.error("Toggle button or element to toggle not found.");
+}
 
 // Sidebar Dropdown toggle
 document.addEventListener("DOMContentLoaded", function () {

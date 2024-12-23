@@ -12,14 +12,14 @@ const App = () => {
   const location = useLocation();
 
   useEffect(() => {
-    const path = location.pathname.slice(1); // Remove leading slash
-    const pathSegments = path.split('-'); // Split by hyphen
+    const path= location.pathname.split('/');
+    const pathSegments = path[1].split('-');
 
     if (pathSegments.length === 2) {
       const [swap, chain] = pathSegments;
-      console.log({ swap, chain })
-      const client = clients[chain].graph?.[swap];
-      console.log({client})
+
+      const client = clients[chain].graph?.[swap].client;
+
       if (client) {
         setSelectedClient(client);
       } else {
@@ -34,7 +34,7 @@ const App = () => {
     <>
       <header>
         <Navgation />
-        <Header />
+        {selectedClient ? (<Header />):(<></>)}
       </header>
 
       {/* Only render ApolloProvider if a valid client is selected */}

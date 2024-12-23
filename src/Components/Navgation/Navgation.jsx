@@ -1,7 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { clients } from "../../constants/constants";
 
-const Navigation = ({ setChain, setSwap }) => {
+const Navigation = () => {
 
   return (
     <div id="sidebar-wrapper" className="sidebar-wrapper">
@@ -32,13 +33,13 @@ const Navigation = ({ setChain, setSwap }) => {
             </Link>
           </li>
           <li className="nav-item">
-            <Link className="nav-link d-flex gap-2 align-items-center" to="/new-pairs">
+            <Link className="nav-link d-flex gap-2 align-items-center" to="/newpairs">
               <i className="fa fa-envira"></i>
               <span className="fw-semibold">New Pairs</span>
             </Link>
           </li>
           <li className="nav-item">
-            <Link className="nav-link d-flex gap-2 align-items-center" to="/gainers-losers">
+            <Link className="nav-link d-flex gap-2 align-items-center" to="/gainerslosers">
               <i className="fa fa-exchange"></i>
               <span className="fw-semibold">Gainers & Losers</span>
             </Link>
@@ -55,61 +56,14 @@ const Navigation = ({ setChain, setSwap }) => {
               <span className="fw-semibold">Watchlist</span>
             </Link>
           </li>
-          <li className="nav-item">
-            <Link className="nav-link d-flex gap-2 align-items-center" to="/uniswapv3-etherium">
-              <img src="img/crypto/etherium.png" alt="Ethereum logo" style={{ width: "22px", height: "22px" }} />
-              <span className="fw-semibold">Ethereum</span>
-            </Link>
-          </li>
-          <li className="nav-item">
-            <Link className="nav-link d-flex gap-2 align-items-center" to="/uniswapv3-optimism">
-              <img src="https://icons.llamao.fi/icons/chains/rsz_optimism.jpg" alt="Optimism logo" style={{ width: "22px", height: "22px", borderRadius: "50%" }} />
-              <span className="fw-semibold">Optimism</span>
-            </Link>
-          </li>
-          <li className="nav-item">
-            <Link className="nav-link d-flex gap-2 align-items-center" to="/uniswapv3-bsc">
-              <img src="https://icons.llamao.fi/icons/chains/rsz_binance.jpg" alt="BSC logo" style={{ width: "22px", height: "22px", borderRadius: "50%" }} />
-              <span className="fw-semibold">Binance Smart Chain</span>
-            </Link>
-          </li>
-          <li className="nav-item">
-            <Link className="nav-link d-flex gap-2 align-items-center" to="/uniswapv3-polygon">
-              <img src="https://icons.llamao.fi/icons/chains/rsz_polygon.jpg" alt="Polygon logo" style={{ width: "22px", height: "22px", borderRadius: "50%" }} />
-              <span className="fw-semibold">Polygon</span>
-            </Link>
-          </li>
-          <li className="nav-item">
-            <Link
-              className="nav-link d-flex gap-2 align-items-center" to="/uniswapv3-base">
-              <img src="https://icons.llamao.fi/icons/chains/rsz_base.jpg" alt="Base logo" style={{ width: "22px", height: "22px", borderRadius: "50%" }} />
-              <span className="fw-semibold">Base</span>
-            </Link>
-          </li>
-          <li className="nav-item">
-            <Link className="nav-link d-flex gap-2 align-items-center" to="/uniswapv3-avalanche">
-              <img src="https://icons.llamao.fi/icons/chains/rsz_avalanche.jpg" alt="Avalanche logo" style={{ width: "22px", height: "22px", borderRadius: "50%" }} />
-              <span className="fw-semibold">Avalanche</span>
-            </Link>
-          </li>
-          <li className="nav-item">
-            <Link className="nav-link d-flex gap-2 align-items-center" to="/uniswapv3-cello">
-              <img src="https://icons.llamao.fi/icons/chains/rsz_celo.jpg" alt="Celo logo" style={{ width: "22px", height: "22px", borderRadius: "50%" }} />
-              <span className="fw-semibold">Celo</span>
-            </Link>
-          </li>
-          <li className="nav-item">
-            <Link className="nav-link d-flex gap-2 align-items-center" to="/uniswapv3-arbitrum">
-              <img src="https://icons.llamao.fi/icons/chains/rsz_arbitrum.jpg" alt="Arbitrum logo" style={{ width: "22px", height: "22px", borderRadius: "50%" }} />
-              <span className="fw-semibold">Arbitrum</span>
-            </Link>
-          </li>
-          <li className="nav-item">
-            <Link className="nav-link d-flex gap-2 align-items-center" to="/uniswapv3-etherium">
-              <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAMAAABF0y+mAAAASFBMVEVHcExYmddlgeAu1r5Irc5Hrc2JU/WKVPYj6q1reeMl5bOJUfWUSP0k5rNQndRcjdsd9KU4xsR9YO5pfOIt2b1DtctJqs9ybugVOp/+AAAAC3RSTlMAHE9DQ09NMjJDT2HHxPcAAACSSURBVCiRxdDBDoMgEEVRUMtUoFpB5f//tIPTyJOkpJumd3uCPlDqf+l7Fdiwbcuyrg/uKRWlad+vWkzPEyqzLRbnSosp3XE3yeZwTTszHg25nsOT5EJIUX4sV7JN7T+ojMYvG+dCSqgaz75HySqehdiMzFF3vgecNN7lYLQG4y5ajLyvlGo7NcUR11R9fY0f9AL+uBAN6GmI1QAAAABJRU5ErkJggg==" alt="Solana logo" style={{ width: "22px", height: "22px", borderRadius: "50%" }} />
-              <span className="fw-semibold">Solana</span>
-            </Link>
-          </li>
+          {Object.keys(clients).map((key, index) => (
+            <li className="nav-item" key={index}>
+              <Link className="nav-link d-flex gap-2 align-items-center" to={`/${Object.keys(clients[key].graph)[0]}-${key}`}>
+                <img src={clients[key]?.icon} alt="Ethereum logo" style={{ width: "22px", height: "22px" }} />
+                <span className="fw-semibold">{key}</span>
+              </Link>
+            </li>
+          ))}
 
           <li className="nav-item sociallink">
             <a className="sl" href="https://facebook.com" target="_blank" rel="noopener noreferrer">

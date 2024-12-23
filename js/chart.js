@@ -101,7 +101,7 @@ var myChart1 = new Chart(ctx1, {
 
             titleLines.forEach(function (title) {
               innerHtml +=
-                '<tr><th class="primary fw-bold">' + "Bitcoin" + "</th></tr>";
+                '<tr><th className="primary fw-bold">' + "Bitcoin" + "</th></tr>";
             });
             innerHtml += "</thead><tbody>";
 
@@ -111,13 +111,13 @@ var myChart1 = new Chart(ctx1, {
               style += "; border-color:" + colors.borderColor;
               style += "; border-width: 2px";
               const span =
-                '<span class="heading bg-transparent text" style="' +
+                '<span className="heading bg-transparent text" style="' +
                 style +
                 '">' +
                 "$220,342,12" +
                 "</span>";
               innerHtml +=
-                '<tr><td class="d-flex gap-3 align-items-center">' +
+                '<tr><td className="d-flex gap-3 align-items-center">' +
                 span +
                 "</td></tr>";
             });

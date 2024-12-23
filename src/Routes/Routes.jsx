@@ -14,10 +14,10 @@ export const router = createBrowserRouter([
     element: <App />,
     children: [
 
+      { element: <Navigate to={'uniswapv3-etherium'} replace />, index: true },
       // Chains and Swaps
 
         // Chain etherium
-      { element: <Navigate to={'uniswapv3-etherium'} replace />, index: true },
       { path: 'uniswapv3-etherium', element: LazyComponent(() => import("../Pages/List/etherium/ListUniswapV3Etherium")) },
       { path: 'uniswapv2-etherium', element: LazyComponent(() => import("../Pages/List/etherium/ListUniswapV2Etherium")) },
       { path: 'pancakeswap-etherium', element: LazyComponent(() => import("../Pages/List/etherium/ListPancakeSwapEtherium")) },
@@ -54,8 +54,8 @@ export const router = createBrowserRouter([
       { path: 'watchlist', element: LazyComponent(() => import("../Pages/Watchlist/Watchlist")) },
       { path: 'alerts', element: LazyComponent(() => import("../Pages/Alerts/Alerts")) },
       { path: 'multicharts', element: LazyComponent(() => import("../Pages/Multicharts/Multicharts")) },
-      { path: 'new-pairs', element: LazyComponent(() => import("../Pages/NewPairs/NewPairs")) },
-      { path: 'gainers-losers', element: LazyComponent(() => import("../Pages/GainersLosers/GainersLosers")) },
+      { path: 'newpairs', element: LazyComponent(() => import("../Pages/NewPairs/NewPairs")) },
+      { path: 'gainerslosers', element: LazyComponent(() => import("../Pages/GainersLosers/GainersLosers")) },
       { path: 'portfolio', element: LazyComponent(() => import("../Pages/Portfolio/Portfolio")) },
       { path: 'api', element: LazyComponent(() => import("../Pages/Api/Api")) },
       { path: '*', element: <div>404 - Page Not Found</div> },

@@ -90,9 +90,9 @@ const ListUniswapV3Etherium = () => {
 
             <div className="sticky-top lang-select d-flex justify-content-left">
 
-            <div class="dropdown">
-              <button class="gcolor nav-link outline-btn-big py-2 active dropbtn"><i class="fa fa-clock-o" aria-hidden="true"></i> Last 24 hours <i class="fa fa-angle-down"></i></button>
-              <div class="dropdown-content">
+            <div className="dropdown">
+              <button className="gcolor nav-link outline-btn-big py-2 active dropbtn"><i className="fa fa-clock-o" aria-hidden="true"></i> Last 24 hours <i className="fa fa-angle-down"></i></button>
+              <div className="dropdown-content">
               <a href="#">English</a>
               <a href="#">Bangla</a>
               <a href="#">Arabic</a>

@@ -25,8 +25,8 @@ const MultiChart = () => {
   return (
 
     <div id="page-content-wrapper" className="page-content-wrapper main-content">
-        <div class="chartboxmain mainchart px-3 px-md-4 py-3 py-lg-4">
-        <div class="d-flex align-items-center gap-2 mb-1"><span class="fw-bold text-white title">Multicharts</span></div>
+        <div className="chartboxmain mainchart px-3 px-md-4 py-3 py-lg-4">
+        <div className="d-flex align-items-center gap-2 mb-1"><span className="fw-bold text-white title">Multicharts</span></div>
 
 <div className='row'>
               <div className="col-md-4">
@@ -200,9 +200,9 @@ const MultiChart = () => {
             <div className="col-md-4">
               <a href='#'>
                 <div className='addchart'>
-                <i class="fa fa-plus"></i>
+                <i className="fa fa-plus"></i>
                   <p>Add Chart</p>
-                  <span class="chakra-text custom-9nj7vy">10 of 16 slots remaining</span>
+                  <span className="chakra-text custom-9nj7vy">10 of 16 slots remaining</span>
                   </div>
                   </a>
             </div>
