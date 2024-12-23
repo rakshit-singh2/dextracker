@@ -1,7 +1,11 @@
 import { ApolloClient, InMemoryCache } from "@apollo/client";
-const uniswapImage ='https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984/logo.png'
-const pancakeswapImage ='https://docs.pancakeswap.finance/~gitbook/image?url=https%3A%2F%2F2612825755-files.gitbook.io%2F%7E%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fcollections%252F-MHREX7DHcljbY5IkjgJ%252Ficon%252FW38rmBbaxxiYbRRRJfLW%252FGroup%252053654.png%3Falt%3Dmedia%26token%3Dfebc62b9-a084-4928-b23b-1f3cb931b7c9&width=32&dpr=4&quality=100&sign=4e091a0d&sv=2'
-const radyumswapImage ='https://icons.llamao.fi/icons/protocols/raydium?w=48&h=48'
+const uniswapImage ='https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984/logo.png';
+
+const pancakeswapImage ='https://docs.pancakeswap.finance/~gitbook/image?url=https%3A%2F%2F2612825755-files.gitbook.io%2F%7E%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fcollections%252F-MHREX7DHcljbY5IkjgJ%252Ficon%252FW38rmBbaxxiYbRRRJfLW%252FGroup%252053654.png%3Falt%3Dmedia%26token%3Dfebc62b9-a084-4928-b23b-1f3cb931b7c9&width=32&dpr=4&quality=100&sign=4e091a0d&sv=2';
+
+const radyumswapImage ='https://icons.llamao.fi/icons/protocols/raydium?w=48&h=48';
+
+const orcaImage ='https://icons.llamao.fi/icons/protocols/orca?w=48&h=48';
 
 const etherium = {
     'uniswapv3': {
@@ -65,12 +69,26 @@ const optimism = {
 }
 
 const solana = {
-    'raydium': {
+    'raydiumv2': {
         'client': new ApolloClient({
             cache: new InMemoryCache(),
             uri: "https://programs.shyft.to/v0/graphql/?api_key=qFXt-buNCCIgGBTq&network=mainnet-beta",
         }),
         'icon': radyumswapImage
+    },
+    'orcav2': {
+        'client': new ApolloClient({
+            cache: new InMemoryCache(),
+            uri: "https://thegraph.com/explorer/subgraphs/5uxAUcxNjZnvLhBF3dQk1gxXDYZwjaamohQrndWi8UNL?view=Query&chain=arbitrum-one",
+        }),
+        'icon': orcaImage
+    },
+    'orcav3': {
+        'client': new ApolloClient({
+            cache: new InMemoryCache(),
+            uri: "https://thegraph.com/explorer/subgraphs/Bo8bE9LWnqeq1NMyCMq8HYag5jVVdZBBdW8EkSq2jgp5?view=Query&chain=arbitrum-one",
+        }),
+        'icon': orcaImage
     },
 }
 

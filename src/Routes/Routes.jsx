@@ -1,7 +1,7 @@
 import { createBrowserRouter, Navigate } from "react-router-dom";
 import App from "../App";
 import React, { lazy, Suspense } from "react";
-import Services from "../Services";
+import Services from "../services";
 
 const LazyComponent = (importFunc) => (
   <Suspense fallback={<div>Loading...</div>}>
@@ -41,7 +41,7 @@ export const router = createBrowserRouter([
       { path: 'uniswapv3-arbitrum', element: LazyComponent(() => import("../Pages/List/arbitrum/ListUniswapV3Arbitrum")) },
 
       // Chain solana
-      { path: 'raydium-solana', element: LazyComponent(() => import("../Pages/List/arbitrum/ListUniswapV3Arbitrum")) },
+      { path: 'raydiumv2-solana', element: LazyComponent(() => import("../Pages/List/solana/ListRaydiumV2Solana")) },
     ],
   },
   {
