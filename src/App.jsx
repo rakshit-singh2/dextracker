@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import Navgation from "./Components/Navgation/Navgation";
 import Footer from "./Components/Footer/Footer";
 import Header from "./Components/Header/Header";
@@ -7,25 +7,34 @@ import { ApolloProvider } from "@apollo/client";
 import { clients } from "./constants/constants";
 
 const App = () => {
-  const [chain, setChain] = useState('1');  // Default to Ethereum chain
-  const [swap, setSwap] = useState("UniswapV3");  // Default to UniswapV3
-  const [selectedClient, setSelectedClient] = useState(null);
 
-  // Dynamically select the client based on chain and swap
+  const [selectedClient, setSelectedClient] = useState(null);
+  const location = useLocation();
+
   useEffect(() => {
-    const client = clients[chain]?.[swap];
-    if (client) {
-      setSelectedClient(client);  // Update client when chain or swap changes
+    const path = location.pathname.slice(1); // Remove leading slash
+    const pathSegments = path.split('-'); // Split by hyphen
+
+    if (pathSegments.length === 2) {
+      const [swap, chain] = pathSegments;
+      console.log({ swap, chain })
+      const client = clients[chain].graph?.[swap];
+      console.log({client})
+      if (client) {
+        setSelectedClient(client);
+      } else {
+        console.error(`Apollo client not found for chain ${chain} and swap ${swap}`);
+      }
     } else {
-      console.error(`Apollo client not found for chain ${chain} and swap ${swap}`);
+      console.log("Path format is incorrect");
     }
-  }, [chain, swap]); // Re-run when chain or swap changes
+  }, [location]);
 
   return (
     <>
       <header>
-        <Navgation setChain={setChain} setSwap={setSwap} />
-        <Header setSwap={setSwap} />
+        <Navgation />
+        <Header />
       </header>
 
       {/* Only render ApolloProvider if a valid client is selected */}

@@ -1,18 +1,10 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const Header = ({ setSwap }) => {
+const Header = () => {
   const navigate = useNavigate();
-
-  // Handle swap and navigation
-  const handleSwapChange = (swapType, path) => {
-    console.log(`Selected Swap: ${swapType}`);  // Log to ensure it's correct
-    if (setSwap) {
-      setSwap(swapType);  // Update swap state
-    } else {
-      console.error('setSwap is not defined');
-    }
-    navigate(path);  // Navigate to the new path
+  const handleSwapChange = (path) => {
+    navigate(path);
   };
 
   return (
@@ -32,7 +24,7 @@ const Header = ({ setSwap }) => {
                 <ul className="allchain">
                   <li className="firstchaindiv">All Swap</li>
                   <li>
-                    <a href="#" onClick={(e) => {e.preventDefault(); handleSwapChange('UniswapV3', '/uniswapv3-etherium')}}>
+                    <a href="#" onClick={(e) => {e.preventDefault(); handleSwapChange('/uniswapv3-etherium')}}>
                       <img
                         src="https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984/logo.png"
                         style={{ width: "22px", height: "22px" }}
@@ -41,7 +33,7 @@ const Header = ({ setSwap }) => {
                     </a>
                   </li>
                   <li>
-                    <a href="#" onClick={(e) => {e.preventDefault(); handleSwapChange('UniswapV2', '/uniswapv2-etherium')}}>
+                    <a href="#" onClick={(e) => {e.preventDefault(); handleSwapChange('/uniswapv2-etherium')}}>
                       <img
                         src="https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984/logo.png"
                         style={{ width: "22px", height: "22px" }}
@@ -50,7 +42,7 @@ const Header = ({ setSwap }) => {
                     </a>
                   </li>
                   <li>
-                    <a href="#" onClick={(e) => {e.preventDefault(); handleSwapChange('PancakeSwapV2', '/pancakeswap-etherium')}}>
+                    <a href="#" onClick={(e) => {e.preventDefault(); handleSwapChange('/pancakeswap-etherium')}}>
                       <img
                         src="https://docs.pancakeswap.finance/~gitbook/image?url=https%3A%2F%2F2612825755-files.gitbook.io%2F%7E%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fcollections%252F-MHREX7DHcljbY5IkjgJ%252Ficon%252FW38rmBbaxxiYbRRRJfLW%252FGroup%252053654.png%3Falt%3Dmedia%26token%3Dfebc62b9-a084-4928-b23b-1f3cb931b7c9&width=32&dpr=4&quality=100&sign=4e091a0d&sv=2"
                         style={{ width: "22px", height: "22px", borderRadius: "50%" }}
