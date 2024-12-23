@@ -128,7 +128,7 @@ export const clients = {
     },
     'arbitrum': {
         'graph': arbitrum,
-        'icon': 'https://icons.llamao.fi/icons/chains/rsz_arbitrum.jpg',
+        'icon': 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAMAAABF0y+mAAAAnFBMVEVHcEy63veQu9qfzvCfzu+6vMGfzvCg0PGg0PGfzu+fz/H///+ipq77/f7///8hMUf///8UIzqg0PEQrf+Js9IeLUMWKkIHITz19/idn6XU1dgCEC4hJzgnR2NpeotFTl0UWISNuNiCqsdTYXNtkKshO1V/g40Yda8Vi88Qo/U2QVJ5rNDl5+qWyOyMk5wSluF3vetDtPy62/Qxeapv+0azAAAAD3RSTlMAEeV4xPyb3zGpREV4vabElXnOAAABVklEQVQokX2S6ZKCMBCEsTwQ90gmMQnILSJHibq77/9u28FaC3B1/oWv00N6xnGGtV47z2q9EGLxP555QhwOQnizRzYXYh8TxXsh5hO0cUVekGJMUZELdzNu1iVas760TrpB6xWalcS0MUoZoxmVaL26Mc82U0wnQZCmQZBoeKO110M3D5W18zlPl5wHBgcV5u4NbglHOnK+CzkEVsloO4ThjvOzFZg6mkLV+tzXEBwzWaoJNGdcYpz7bS2raApxKYFgqaW8TKAqcMmcIKBGyliNoAlwKeX8RFElre8QhnhkYQVxFUvZjKCG6ymEa1o10UXKTA2gscn0gkZm8K2jO0R8cG0hOGcAJXzv8SF4+0hjs+1BLeXPX/AYGb4f++gigCyT1/vIMOwP7pONjhR8L6Nho96WNluGUJuvbrwmtt7xryVRe31cMNTs87t7tprOy6Xu8Rj9AiYRKklhMZHhAAAAAElFTkSuQmCC',
     },
     'avalanche': {
         'graph': avalanche,
