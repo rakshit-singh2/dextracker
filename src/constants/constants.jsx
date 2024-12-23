@@ -106,7 +106,7 @@ const arbitrum = {
 export const clients = {
     'etherium': {
         'graph': etherium,
-        'icon': 'img/crypto/etherium.png',
+        'icon': '/img/crypto/etherium.png',
     },
     'arbitrum': {
         'graph': arbitrum,

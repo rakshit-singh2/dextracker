@@ -8,50 +8,50 @@ const Navigation = () => {
     <div id="sidebar-wrapper" className="sidebar-wrapper">
       <div className="sidebar-heading">
         <Link to="/">
-          <img id="logo" src="img/logo.png" alt="Logo" />
+          <img id="logo" src="/img/logo.png" alt="Logo" />
         </Link>
 
       </div>
       <nav className="sidebar mb-4">
         <ul className="nav flex-column" id="nav_accordion">
           <li className="nav-item">
-            <Link className="nav-link d-flex gap-2 align-items-center" to="/watchlist">
+            <Link className="nav-link d-flex gap-2 align-items-center" to="/services/watchlist">
               <i className="fa fa-star"></i>
               <span className="fw-semibold">Watchlist</span>
             </Link>
           </li>
           <li className="nav-item">
-            <Link className="nav-link d-flex gap-2 align-items-center" to="/alerts">
+            <Link className="nav-link d-flex gap-2 align-items-center" to="/services/alerts">
               <i className="fa fa-bell"></i>
               <span className="fw-semibold">Alerts</span>
             </Link>
           </li>
           <li className="nav-item">
-            <Link className="nav-link d-flex gap-2 align-items-center" to="/multicharts">
+            <Link className="nav-link d-flex gap-2 align-items-center" to="/services/multicharts">
               <i className="fa fa-th-large"></i>
               <span className="fw-semibold">Multicharts</span>
             </Link>
           </li>
           <li className="nav-item">
-            <Link className="nav-link d-flex gap-2 align-items-center" to="/newpairs">
+            <Link className="nav-link d-flex gap-2 align-items-center" to="/services/newpairs">
               <i className="fa fa-envira"></i>
               <span className="fw-semibold">New Pairs</span>
             </Link>
           </li>
           <li className="nav-item">
-            <Link className="nav-link d-flex gap-2 align-items-center" to="/gainerslosers">
+            <Link className="nav-link d-flex gap-2 align-items-center" to="/services/gainerslosers">
               <i className="fa fa-exchange"></i>
               <span className="fw-semibold">Gainers & Losers</span>
             </Link>
           </li>
           <li className="nav-item">
-            <Link className="nav-link d-flex gap-2 align-items-center" to="/portfolio">
+            <Link className="nav-link d-flex gap-2 align-items-center" to="/services/portfolio">
               <i className="fa fa-suitcase"></i>
               <span className="fw-semibold">Portfolio</span>
             </Link>
           </li>
           <li className="nav-item">
-            <Link className="nav-link d-flex gap-2 align-items-center" to="/api">
+            <Link className="nav-link d-flex gap-2 align-items-center" to="/services/api">
               <i className="fa fa-star"></i>
               <span className="fw-semibold">Watchlist</span>
             </Link>
