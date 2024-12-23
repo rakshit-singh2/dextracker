@@ -16,7 +16,7 @@ export const router = createBrowserRouter([
     path: '/',
     element: <App />,
     children: [
-      { index: true, element: <ListUniswapV3Etherium /> }, // Default route
+      { index: true, element: <ListUniswapV3Etherium /> },
       { path: 'uniswapv3-etherium', element: <ListUniswapV3Etherium /> },
       { path: 'uniswapv2-etherium', element: <ListUniswapV2Etherium /> },
       { path: 'pancakeswap-etherium', element: <ListPancakeSwapEtherium/> },
