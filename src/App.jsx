@@ -5,28 +5,30 @@ import Footer from "./Components/Footer/Footer";
 import Header from "./Components/Header/Header";
 import { ApolloProvider } from "@apollo/client";
 import { clients } from "./constants/constants";
+import Home from "./Components/Home/Home";
 
 const App = () => {
-
   const [selectedClient, setSelectedClient] = useState(null);
   const location = useLocation();
 
   useEffect(() => {
-    const path= location.pathname.split('/');
-    const pathSegments = path[1].split('-');
+    const pathSegments = location.pathname.split('/')[1]?.split('-') || [];
 
     if (pathSegments.length === 2) {
       const [swap, chain] = pathSegments;
 
-      const client = clients[chain].graph?.[swap].client;
+      // Access client based on chain and swap
+      const client = clients?.[chain]?.graph?.[swap]?.client;
 
       if (client) {
         setSelectedClient(client);
       } else {
-        console.error(`Apollo client not found for chain ${chain} and swap ${swap}`);
+        console.error(`Apollo client not found for chain "${chain}" and swap "${swap}"`);
+        setSelectedClient(null);
       }
     } else {
-      console.log("Path format is incorrect");
+      console.warn("Path format is incorrect. Expected format: /swap-chain");
+      setSelectedClient(null);
     }
   }, [location]);
 
@@ -34,16 +36,16 @@ const App = () => {
     <>
       <header>
         <Navgation />
-        {selectedClient ? (<Header />):(<></>)}
+        {selectedClient ? <Header /> : null}
       </header>
 
-      {/* Only render ApolloProvider if a valid client is selected */}
+      {/* Conditional ApolloProvider Rendering */}
       {selectedClient ? (
         <ApolloProvider client={selectedClient}>
           <Outlet />
         </ApolloProvider>
       ) : (
-        <div>Error: Apollo client is not available for the selected configuration.</div>
+        <Home/>
       )}
 
       <Footer />

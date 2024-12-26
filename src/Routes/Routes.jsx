@@ -3,12 +3,17 @@ import App from "../App";
 import React, { lazy, Suspense } from "react";
 import Services from "../services";
 
-const LazyComponent = (importFunc) => (
-  <Suspense fallback={<div>Loading...</div>}>
-    {React.createElement(lazy(importFunc))}
-  </Suspense>
-);
+// LazyComponent to dynamically import components
+const LazyComponent = (importFunc) => {
+  const Component = lazy(importFunc);
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <Component />
+    </Suspense>
+  );
+};
 
+// Router configuration
 export const router = createBrowserRouter([
   {
     path: '/',
@@ -40,7 +45,7 @@ export const router = createBrowserRouter([
       // Chain arbitrum
       { path: 'uniswapv3-arbitrum', element: LazyComponent(() => import("../Pages/List/arbitrum/ListUniswapV3Arbitrum")) },
 
-      // Chain arbitrum
+      // Chain avalanche
       { path: 'uniswapv3-avalanche', element: LazyComponent(() => import("../Pages/List/avalanche/ListUniswapV3Avalanche")) },
 
       // Chain solana
@@ -58,6 +63,7 @@ export const router = createBrowserRouter([
       { path: 'gainerslosers', element: LazyComponent(() => import("../Pages/GainersLosers/GainersLosers")) },
       { path: 'portfolio', element: LazyComponent(() => import("../Pages/Portfolio/Portfolio")) },
       { path: 'api', element: LazyComponent(() => import("../Pages/Api/Api")) },
+      { path: 'pair/:chain/:pairaddress', element: LazyComponent(() => import("../Pages/Pair/Pair")) },
       { path: '*', element: <div>404 - Page Not Found</div> },
     ],
   },

@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { clients } from "../../constants/constants";
 
-const Navigation = () => {
+const Navigation = ({ chain }) => {
 
   return (
     <div id="sidebar-wrapper" className="sidebar-wrapper">
@@ -58,7 +58,7 @@ const Navigation = () => {
           </li>
           {Object.keys(clients).map((key, index) => (
             <li className="nav-item" key={index}>
-              <Link className="nav-link d-flex gap-2 align-items-center" to={`/${Object.keys(clients[key].graph)[0]}-${key}`}>
+              <Link className={`nav-link d-flex gap-2 align-items-center ${chain === key ? 'active-link' : ''}`} to={`/${Object.keys(clients[key].graph)[0]}-${key}`}>
                 <img src={clients[key]?.icon} alt="Ethereum logo" style={{ width: "22px", height: "22px", borderRadius: "50%" }} />
                 <span className="fw-semibold">{key}</span>
               </Link>

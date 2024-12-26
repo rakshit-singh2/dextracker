@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useQuery, gql } from '@apollo/client';
 import TokenRowUniswapV3Etherium from "../../../Components/TokenRow/etherium/TokenRowUniswapV3Etherium";
+import { Link } from "react-router-dom";
 
 const ListUniswapV3Etherium = () => {
   const GET_POOLS = gql`
@@ -142,7 +143,7 @@ const ListUniswapV3Etherium = () => {
                   {
                     data && data.pools && data.pools.length > 0 ? (
                       data.pools.map((pool, index) => (
-                        <TokenRowUniswapV3Etherium key={index} pool={pool} />
+                        <Link to={`/services/pair/1/${pool.id}`}><TokenRowUniswapV3Etherium key={index} pool={pool} /></Link>
                       ))
                     ) : (
                       <tr>
