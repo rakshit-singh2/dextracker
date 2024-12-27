@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useQuery, gql } from '@apollo/client';
 import TokenRowPancakeSwapEtherium from "../../../Components/TokenRow/etherium/TokenRowPancakeSwapEtherium";
 import { Link } from "react-router-dom";
+import Header from "../../../Components/Header/Header";
 
 const ListPancakeSwapEtherium = () => {
   const GET_POOLS = gql`
@@ -75,51 +76,55 @@ const ListPancakeSwapEtherium = () => {
   };
 
   return (
-    <div id="page-content-wrapper" className="page-content-wrapper">
-      <div className="centercontent container-fluid main-content px-2">
-        <div className="col-12">
-          <div className="mainchart px-3 px-md-4 py-3 py-lg-4">
-            <div className="sticky-top lang-select d-flex justify-content-left">
-              <button className="gcolor nav-link outline-btn-big py-2 active">Top Pools</button>
-            </div>
+    <>
+      <Header />
+      <div id="page-content-wrapper" className="page-content-wrapper">
+        <div className="centercontent container-fluid main-content px-2">
+          <div className="col-12">
+            <div className="mainchart px-3 px-md-4 py-3 py-lg-4">
+              <div className="sticky-top lang-select d-flex justify-content-left">
+                <button className="gcolor nav-link outline-btn-big py-2 active">Top Pools</button>
+              </div>
 
-            <div className="pb-2 pt-3 price-table scrollme">
-              <table className="table table-responsive">
-                <thead>
-                  <tr>
-                    <th className="fw-bold">Token</th>
-                    <th className="fw-bold">Price</th>
-                    <th className="fw-bold">Age</th>
-                    <th className="fw-bold">Txns</th>
-                    <th className="fw-bold">Volume</th>
-                    <th className="fw-bold">Liquidity</th>
-                    <th className="fw-bold">MCAP</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {
-                    data && data.pools && data.pools.length > 0 ? (
-                      data.pools.map((pool, index) => (
-                        <Link to={`/pair/1/${pool}`}><TokenRowPancakeSwapEtherium key={index} pool={pool} /></Link>
-                      ))
-                    ) : (
-                      <tr>
-                        <td colSpan="7">No tokens available or loading...</td>
-                      </tr>
-                    )
-                  }
-                </tbody>
-              </table>
-              <div className="buttongroup">
-                <div>Page {page}</div>
-                <button className="previous" onClick={handlePrevious}>&laquo; Previous</button>
-                <button className="next" onClick={handleNext}>Next &raquo;</button>
+              <div className="pb-2 pt-3 price-table scrollme">
+                <table className="table table-responsive">
+                  <thead>
+                    <tr>
+                      <th className="fw-bold">Token</th>
+                      <th className="fw-bold">Price</th>
+                      <th className="fw-bold">Age</th>
+                      <th className="fw-bold">Txns</th>
+                      <th className="fw-bold">Volume</th>
+                      <th className="fw-bold">Liquidity</th>
+                      <th className="fw-bold">MCAP</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {
+                      data && data.pools && data.pools.length > 0 ? (
+                        data.pools.map((pool, index) => (
+                          <Link to={`/pair/1/${pool}`}><TokenRowPancakeSwapEtherium key={index} pool={pool} /></Link>
+                        ))
+                      ) : (
+                        <tr>
+                          <td colSpan="7">No tokens available or loading...</td>
+                        </tr>
+                      )
+                    }
+                  </tbody>
+                </table>
+                <div className="buttongroup">
+                  <div>Page {page}</div>
+                  <button className="previous" onClick={handlePrevious}>&laquo; Previous</button>
+                  <button className="next" onClick={handleNext}>Next &raquo;</button>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+
+    </>
   );
 };
 

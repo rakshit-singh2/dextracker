@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 import poolabi from '../../constants/poolabi.json';
 import { useWatchContractEvent } from 'wagmi';
 import { wagmiconfig, viemClients } from '../../wagmiconfig/wagmiconfig';
+import { decodeEventLog } from 'viem';
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
@@ -123,19 +124,24 @@ const Pair = () => {
         const data = log.data;
         const topics = log.topics;
 
-        // Assuming token0 is bought if it is the one being swapped from
-        const token0Amount = hexToBigInt(data.substring(0, 18)); // Assuming first part of data represents token0 amount
-        const token1Amount = hexToBigInt(data.substring(18, 36)); // Assuming next part represents token1 amount
+        const decodedLog = decodeEventLog({
+            abi: [
+                {
+                    type: 'event',
+                    name: 'Transfer',
+                    inputs: [
+                        { indexed: true, name: 'from', type: 'address' },
+                        { indexed: true, name: 'to', type: 'address' },
+                        { indexed: false, name: 'value', type: 'uint256' },
+                    ],
+                },
+            ],
+            data,
+            topics,
+        });
+        console.log({ topics })
+        console.log({ decodedLog })
 
-        console.log(`Token0 Amount: ${token0Amount}, Token1 Amount: ${token1Amount}`);
-
-        // Swap is typically: when a user sells token0 to buy token1
-        // We can assume token0 is being sold for token1
-        if (token0Amount > token1Amount) {
-            return 'Sell';  // User is selling token0
-        } else if (token1Amount > token0Amount) {
-            return 'Buy';  // User is buying token0
-        }
 
         return 'Unknown'; // Unable to determine
     };
@@ -146,7 +152,7 @@ const Pair = () => {
             <div>{logs.length} logs found</div>
 
             {/* Trading Table */}
-            <table>
+            <table style={{ marginLeft: '400px', overflowX: 'auto', whiteSpace: 'nowrap', width: '300px', border: '1px solid #ccc' }}>
                 <thead>
                     <tr>
                         <th>Block Number</th>
@@ -157,7 +163,7 @@ const Pair = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {logs.map((log, index) => {
+                    {/* {logs.map((log, index) => {
                         const blockTimestamp = parseInt(log.blockTimestamp, 16);
                         const date = new Date(blockTimestamp * 1000).toLocaleString();
                         const tradeType = getTradeType(log);  // Determine if it's a buy or sell
@@ -170,7 +176,14 @@ const Pair = () => {
                                 <td>{log.data}</td>
                             </tr>
                         );
-                    })}
+                    })} */}
+                    {logs.length>1 && <tr>
+                                <td>{logs[1].blockNumber}</td>
+                                <td>{logs[1].transactionHash}</td>
+                                <td>{new Date(parseInt(logs[1].blockTimestamp, 16) * 1000).toLocaleString()}</td>
+                                <td>{getTradeType(logs[1])}</td>
+                                <td>{logs[1].data}</td>
+                            </tr>}
                 </tbody>
             </table>
 

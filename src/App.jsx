@@ -36,7 +36,6 @@ const App = () => {
     <>
       <header>
         <Navgation />
-        {selectedClient ? <Header /> : null}
       </header>
 
       {/* Conditional ApolloProvider Rendering */}

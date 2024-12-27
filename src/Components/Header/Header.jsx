@@ -14,13 +14,7 @@ const Header = () => {
     return (
       <div className="page-content-wrapper">
         <nav className="navbar navbar-expand-lg py-lg-3 px-2 px-lg-4 d-flex fixed-top justify-content-between">
-          <div className="d-flex align-items-center">
-            <div className="d-flex align-items-center d-lg-none">
-              <span className="material-symbols-outlined menu-toggle" id="menu-toggle">
-                menu
-              </span>
-            </div>
-          </div>
+         
           <div className="col-md-12 topmenu">
             <div className="justify-content-end">
               <div className="row">

@@ -1,11 +1,34 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import { clients } from "../../constants/constants";
-
+import React, { useEffect } from "react";
+import '../../js/custom-jquery.js';
 const Navigation = ({ chain }) => {
+
+  useEffect(() => {
+    const el = document.getElementById("wrapper");
+    const toggleButton = document.getElementById("menu-toggle");
+
+    if (el && toggleButton) {
+      toggleButton.onclick = function () {
+        el.classList.toggle("toggled");
+      };
+    }
+  }, []);
 
   return (
     <div id="sidebar-wrapper" className="sidebar-wrapper">
+
+       <nav className="menutoggle navbar navbar-expand-lg py-lg-3 px-2 px-lg-4 d-flex fixed-top justify-content-between">
+          <div className="d-flex align-items-center">
+            <div className="d-flex align-items-center d-lg-none">
+              <span className="material-symbols-outlined menu-toggle" id="menu-toggle">
+                menu
+              </span>
+            </div>
+          </div>
+        </nav>
+
+
       <div className="sidebar-heading">
         <Link to="/">
           <img id="logo" src="/img/logo.png" alt="Logo" />
