@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { clients } from "../../constants/constants";
+import { chains,chainsLogo, clients } from "../../constants/constants";
 import React, { useEffect } from "react";
 import '../../js/custom-jquery.js';
 const Navigation = ({ chain }) => {
@@ -18,15 +18,15 @@ const Navigation = ({ chain }) => {
   return (
     <div id="sidebar-wrapper" className="sidebar-wrapper">
 
-       <nav className="menutoggle navbar navbar-expand-lg py-lg-3 px-2 px-lg-4 d-flex fixed-top justify-content-between">
-          <div className="d-flex align-items-center">
-            <div className="d-flex align-items-center d-lg-none">
-              <span className="material-symbols-outlined menu-toggle" id="menu-toggle">
-                menu
-              </span>
-            </div>
+      <nav className="menutoggle navbar navbar-expand-lg py-lg-3 px-2 px-lg-4 d-flex fixed-top justify-content-between">
+        <div className="d-flex align-items-center">
+          <div className="d-flex align-items-center d-lg-none">
+            <span className="material-symbols-outlined menu-toggle" id="menu-toggle">
+              menu
+            </span>
           </div>
-        </nav>
+        </div>
+      </nav>
 
 
       <div className="sidebar-heading">
@@ -38,52 +38,17 @@ const Navigation = ({ chain }) => {
       <nav className="sidebar mb-4">
         <ul className="nav flex-column" id="nav_accordion">
           <li className="nav-item">
-            <Link className="nav-link d-flex gap-2 align-items-center" to="/services/watchlist">
+            <Link className="nav-link d-flex gap-2 align-items-center" to="/">
               <i className="fa fa-star"></i>
-              <span className="fw-semibold">Watchlist</span>
+              <span className="fw-semibold">Home</span>
             </Link>
           </li>
-          <li className="nav-item">
-            <Link className="nav-link d-flex gap-2 align-items-center" to="/services/alerts">
-              <i className="fa fa-bell"></i>
-              <span className="fw-semibold">Alerts</span>
-            </Link>
-          </li>
-          <li className="nav-item">
-            <Link className="nav-link d-flex gap-2 align-items-center" to="/services/multicharts">
-              <i className="fa fa-th-large"></i>
-              <span className="fw-semibold">Multicharts</span>
-            </Link>
-          </li>
-          <li className="nav-item">
-            <Link className="nav-link d-flex gap-2 align-items-center" to="/services/newpairs">
-              <i className="fa fa-envira"></i>
-              <span className="fw-semibold">New Pairs</span>
-            </Link>
-          </li>
-          <li className="nav-item">
-            <Link className="nav-link d-flex gap-2 align-items-center" to="/services/gainerslosers">
-              <i className="fa fa-exchange"></i>
-              <span className="fw-semibold">Gainers & Losers</span>
-            </Link>
-          </li>
-          <li className="nav-item">
-            <Link className="nav-link d-flex gap-2 align-items-center" to="/services/portfolio">
-              <i className="fa fa-suitcase"></i>
-              <span className="fw-semibold">Portfolio</span>
-            </Link>
-          </li>
-          <li className="nav-item">
-            <Link className="nav-link d-flex gap-2 align-items-center" to="/services/api">
-              <i className="fa fa-star"></i>
-              <span className="fw-semibold">Watchlist</span>
-            </Link>
-          </li>
-          {Object.keys(clients).map((key, index) => (
-            <li className="nav-item" key={index}>
-              <Link className={`nav-link d-flex gap-2 align-items-center ${chain === key ? 'active-link' : ''}`} to={`/${Object.keys(clients[key].graph)[0]}-${key}`}>
-                <img src={clients[key]?.icon} alt="Ethereum logo" style={{ width: "22px", height: "22px", borderRadius: "50%" }} />
-                <span className="fw-semibold">{key}</span>
+          
+          {chains.map((value, key) => (
+            <li className="nav-item" key={key}>
+              <Link className={`nav-link d-flex gap-2 align-items-center ${chain === value ? 'active-link' : ''}`} to={`chain/${value}`}>
+                <img src={chainsLogo[key]} alt="Ethereum logo" style={{ width: "19px", height: "19px", borderRadius: "50%" }} />
+                <span className="fw-semibold">{value}</span>
               </Link>
             </li>
           ))}

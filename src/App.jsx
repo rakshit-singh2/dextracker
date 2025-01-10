@@ -2,10 +2,10 @@ import React, { useState, useEffect } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 import Navgation from "./Components/Navgation/Navgation";
 import Footer from "./Components/Footer/Footer";
-import Header from "./Components/Header/Header";
-import { ApolloProvider } from "@apollo/client";
+
+
 import { clients } from "./constants/constants";
-import Home from "./Components/Home/Home";
+
 
 const App = () => {
   const [selectedClient, setSelectedClient] = useState(null);
@@ -35,18 +35,9 @@ const App = () => {
   return (
     <>
       <header>
-        <Navgation />
+      <Navgation />
       </header>
-
-      {/* Conditional ApolloProvider Rendering */}
-      {selectedClient ? (
-        <ApolloProvider client={selectedClient}>
-          <Outlet />
-        </ApolloProvider>
-      ) : (
-        <Home/>
-      )}
-
+      <Outlet />
       <Footer />
     </>
   );

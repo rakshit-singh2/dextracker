@@ -81,10 +81,10 @@ const Pair = () => {
                 const labels = [];
                 const data = [];
                 logsData.forEach(log => {
-                    const blockTimestamp = parseInt(log.blockTimestamp, 16); // Convert timestamp from hex
-                    const date = new Date(blockTimestamp * 1000); // Convert to milliseconds
-                    labels.push(date.toLocaleString()); // Add formatted date
-                    data.push(parseInt(log.data.substring(0, 18), 16)); // Assuming the first 18 characters represent the trade volume
+                    const blockTimestamp = parseInt(log.blockTimestamp, 16);
+                    const date = new Date(blockTimestamp * 1000);
+                    labels.push(date.toLocaleString());
+                    data.push(parseInt(log.data.substring(0, 18), 16));
                 });
 
                 setChartData({
@@ -109,7 +109,22 @@ const Pair = () => {
 
     useWatchContractEvent({
         address: pairaddress,
-        abi: poolabi,
+        abi: [
+            {
+                anonymous: false,
+                inputs: [
+                    { indexed: true, internalType: "address", name: "sender", type: "address" },
+                    { indexed: true, internalType: "address", name: "recipient", type: "address" },
+                    { indexed: false, internalType: "int256", name: "amount0", type: "int256" },
+                    { indexed: false, internalType: "int256", name: "amount1", type: "int256" },
+                    { indexed: false, internalType: "uint160", name: "sqrtPriceX96", type: "uint160" },
+                    { indexed: false, internalType: "uint128", name: "liquidity", type: "uint128" },
+                    { indexed: false, internalType: "int24", name: "tick", type: "int24" },
+                ],
+                name: "Swap",
+                type: "event",
+            },
+        ],
         chainId: parseInt(chain),
         config: wagmiconfig,
         eventName: 'Swap',
@@ -121,30 +136,43 @@ const Pair = () => {
 
     // Helper function to determine if it's a "Buy" or "Sell"
     const getTradeType = (log) => {
-        const data = log.data;
-        const topics = log.topics;
-
-        const decodedLog = decodeEventLog({
-            abi: [
-                {
-                    type: 'event',
-                    name: 'Transfer',
-                    inputs: [
-                        { indexed: true, name: 'from', type: 'address' },
-                        { indexed: true, name: 'to', type: 'address' },
-                        { indexed: false, name: 'value', type: 'uint256' },
-                    ],
-                },
-            ],
-            data,
-            topics,
-        });
-        console.log({ topics })
-        console.log({ decodedLog })
-
-
-        return 'Unknown'; // Unable to determine
+        console.log({ log })
+        const { data, topics } = log;
+        console.log({ data, topics })
+    
+        try {
+            const decodedLog = decodeEventLog({
+                abi: [
+                    {
+                        anonymous: false,
+                        inputs: [
+                            { indexed: true, internalType: "address", name: "sender", type: "address" },
+                            { indexed: true, internalType: "address", name: "recipient", type: "address" },
+                            { indexed: false, internalType: "int256", name: "amount0", type: "int256" },
+                            { indexed: false, internalType: "int256", name: "amount1", type: "int256" },
+                            { indexed: false, internalType: "uint160", name: "sqrtPriceX96", type: "uint160" },
+                            { indexed: false, internalType: "uint128", name: "liquidity", type: "uint128" },
+                            { indexed: false, internalType: "int24", name: "tick", type: "int24" },
+                        ],
+                        name: "Swap",
+                        type: "event",
+                    },
+                ],
+                data,
+                topics,
+            });
+    
+            console.log({ decodedLog });
+            const { amount0, amount1 } = decodedLog.args;
+    
+            // Determine trade type based on the amounts
+            return amount0 > 0 ? "Buy" : "Sell";
+        } catch (error) {
+            console.error("Failed to decode event log:", error);
+            return "Unknown";
+        }
     };
+    
 
     return (
         <div>

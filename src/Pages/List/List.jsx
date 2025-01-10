@@ -28,9 +28,8 @@ async function getChains(blockchain) {
 
 
 
-function Home() {
-    // const { chain } = useParams();
-    const chain  = 'avalanche' ;
+function List() {
+    const { chain } = useParams();
     const [data, setData] = useState({ blockchain: '', pairs: [] });
     console.log({ data })
     // console.log({ 'tokens_history': data.blockchain.tokens_history })
@@ -81,7 +80,7 @@ function Home() {
                     <div className="col-12">
                         <div className="mainchart px-3 px-md-4 py-3 py-lg-4 ">
                         
-                        <h1>BNB Chain</h1>
+                        <h1>{chain.toUpperCase()} Chain</h1>
 
 
                             <div className="pb-2 price-table scrollme">
@@ -136,5 +135,5 @@ function Home() {
     );
 }
 
-export default Home;
+export default List;
 
