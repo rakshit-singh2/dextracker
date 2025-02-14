@@ -293,7 +293,7 @@ function List() {
                             <h1>{chain} Chain</h1>
                             <div className="pb-2 price-table scrollme">
                                 <table className="table table-responsive">
-                                    <thead>
+                                    <thead className="fixed">
                                         <tr>
                                             <th className="fw-bold">Logo</th>
                                             <th className="fw-bold">Token0/Token1</th>

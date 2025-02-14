@@ -73,16 +73,16 @@ const PairShow = () => {
     // Format the number into a readable format (K, M, B, T)
     const formatNumber = (number) => {
         if (number === undefined || number === null || isNaN(number)) {
-            return '$0.00'; // Return a default value if the number is undefined, null, or not a number
+            return '0.00'; // Return a default value if the number is undefined, null, or not a number
         }
         if (number >= 1000000000) {
-            return `$${(number / 1000000000).toFixed(2)}B`;  // Format for billions (B)
+            return `${(number / 1000000000).toFixed(2)}B`;  // Format for billions (B)
         } else if (number >= 1000000) {
-            return `$${(number / 1000000).toFixed(2)}M`;  // Format for millions (M)
+            return `${(number / 1000000).toFixed(2)}M`;  // Format for millions (M)
         } else if (number >= 1000) {
-            return `$${(number / 1000).toFixed(2)}K`;  // Format for thousands (K)
+            return `${(number / 1000).toFixed(2)}K`;  // Format for thousands (K)
         }
-        return `$${number.toFixed(2)}`;  // For values under 1000, no suffix
+        return `${number.toFixed(2)}`;  // For values under 1000, no suffix
     };
 
 
@@ -128,7 +128,7 @@ const PairShow = () => {
         if (currentPrice && pastPrice) {
             return ((currentPrice - pastPrice) / pastPrice) * 100; // Percentage change
         }
-        return 0; // Return 0 if no valid price data
+        return 0;
     };
 
     // Calculate price changes for various intervals
@@ -194,11 +194,11 @@ const PairShow = () => {
     // Format the amounts to display
     const getFormattedAmount = (amount) => {
         if (amount >= 1000000) {
-            return `$${(amount / 1000000).toFixed(2)}M`;  // Format for millions (M)
+            return `${(amount / 1000000).toFixed(2)}M`;  // Format for millions (M)
         } else if (amount >= 1000) {
-            return `$${(amount / 1000).toFixed(2)}K`;  // Format for thousands (K)
+            return `${(amount / 1000).toFixed(2)}K`;  // Format for thousands (K)
         }
-        return `$${amount.toFixed(2)}`;  // For values under 1000, no suffix
+        return `${amount.toFixed(2)}`;  // For values under 1000, no suffix
     };
 
     const token0CirculatingSupply = token0?.circulatingSupply || 0;
@@ -210,8 +210,6 @@ const PairShow = () => {
     const btcPooled = baseAsset?.token0?.approximateReserveToken;
     const ethPooled = baseAsset?.token1?.approximateReserveToken;
 
-    console.log({data})
-    // Render the fetched data
     return (
         <div id="page-content-wrapper" class="page-content-wrapper">
             <div class="detailspage centercontent container-fluid main-content px-2">
@@ -219,7 +217,7 @@ const PairShow = () => {
                     <div className='row'>
                         <div className='col-md-1'><img className='tokenlogo' src={data.pairData?.token0.logo} /></div>
                         <div className='col-md-3'><h2 className='tnames'>{data.pairData?.token0.name} / {data.pairData?.token1.name} </h2></div>
-                        <div className='col-md-8'> <h2 className='tnames'>${data.pairData?.volume24h} <span className='volume'>+1.09%</span></h2></div>
+                        <div className='col-md-8'> <h2 className='tnames'>${formatNumber(data.pairData?.volume24h)} <span className='volume'>+1.09%</span></h2></div>
                     </div>
 
                     <table class="table tokentable">
@@ -259,7 +257,6 @@ const PairShow = () => {
                                 <img className='grap' src='/img/grap.png' />
                             </div>
 
-
                             <table class="table tokentable">
                                 <thead>
                                     <tr>
@@ -277,7 +274,7 @@ const PairShow = () => {
                                         <tr className='rowbox' key={index}>
                                             <th
                                                 className={`${trade.type === 'buy' ? 'text-green-500' : 'text-red-500'
-                                                    }`}
+                                                }`}
                                             >
                                                 {trade.type === 'buy' ? 'Buy' : 'Sell'}
                                             </th>
@@ -399,13 +396,13 @@ const PairShow = () => {
                             <div className='chartboxs'>
                                 <div className='Pairmarket'>
                                     <h2>Pair Metrics</h2>
-                                    <p>Total Supply: <span>{totalSupplyToken0 + totalSupplyToken1} {token0?.symbol}</span></p>
-                                    <p>{data.pairData?.token0.name} Pooled: <span>{btcPooled} {token0?.symbol}</span></p>
+                                    <p>Total Supply: <span>{formatNumber(totalSupplyToken0 + totalSupplyToken1)} {token0?.symbol}</span></p>
+                                    <p>{data.pairData?.token0.name} Pooled: <span>{formatNumber(btcPooled)} {token0?.symbol}</span></p>
                                     <p>{data.pairData?.token1.name} Pooled: <span>{ethPooled} {token1?.symbol}</span></p>
-                                    <p>Liquidity: <span>${liquidity}</span></p>
+                                    <p>Liquidity: <span>${formatNumber(liquidity)}</span></p>
 
-                                    <p>Volume: <span>${volume24h}</span></p>
-                                    <p>Market Cap <span>$2,023,213,317,453.57</span></p>
+                                    <p>Volume: <span>${formatNumber(volume24h)}</span></p>
+                                    <p>Market Cap <span>${formattedMarketCap}</span></p>
                                     <p>Pair created at: <span>{firstTradeDate ? formatDate(firstTradeDate) : 'N/A'}</span></p>
                                 </div>
                             </div>

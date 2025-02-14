@@ -7,7 +7,7 @@ const Footer = () => {
             <span className="Copyright text-center d-block w-100">
             <span className='copyrighttext'>Copyright © 2024. All Rights Reserved By </span>
             <a href="#"
-            className="primary">Domain Name</a>
+            className="primary">Dex Tracker</a>
             </span>
 
           </div>

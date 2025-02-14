@@ -9,21 +9,17 @@ const TokenRow = ({ pool }) => {
 
   // Function to format numbers to 2 decimal places
   const formatNumber = (num) => {
-    return num ? num.toFixed(2) : "0.00";
+    return num ? num.toFixed(4) : "0.00";
   };
 
   return (
-
-
-
-
     <Link className="ds-dex-table-row ds-dex-table-row-top"
       to={`pair/${pool.pair.address}`}
       style={{ textDecoration: "none", color: "inherit" }} // No underline and inherit text color
     >
       <tr>
         <td>
-          <img id="logo" src={pool.pair.exchange.logo ? pool.pair.exchange.logo : '/img/dummyimage.png'} />
+          <img id="logo" src={pool.pair.exchange.logo || token0.logo || token1.logo||  '/img/dummyimage.png'} />
         </td>
         <td>
           {token0 ? token0.symbol : "N/A"}/{token1 ? token1.symbol : "N/A"}
