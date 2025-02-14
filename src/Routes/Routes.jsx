@@ -20,7 +20,9 @@ export const router = createBrowserRouter([
     children: [
       { index: true, element: LazyComponent(() => import("../Components/Home/Home")) },
       { path: 'chain/:chain', element: LazyComponent(() => import("../Pages/List/List")) },
-      { path: 'pair/:chain', element: LazyComponent(() => import("../Pages/Pair/Pair")) },
+      // { path: 'pair/:chain', element: LazyComponent(() => import("../Pages/Pair/Pair")) },
+      { path: 'pair/:address', element: LazyComponent(() => import("../Pages/PairShowDeatils/PairShow")) },
+      { path: 'chain/:chain/pair/:address', element: LazyComponent(() => import("../Pages/PairShowDeatils/PairShow")) },
     ],
   },
 ]);

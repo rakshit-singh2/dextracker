@@ -450,14 +450,16 @@
 	border-spacing: 0;
 	width: 100%;
 	margin-top:15px;
+	display: inline-grid
+
 }
 .main-content .price-table th, .main-content .price-table td {
 	text-align: left;
 	padding:10px 8px 10px;
 	white-space: nowrap;
 	font-size:14px;
+    color: hsla(0, 0%, 100%, .95);
 
-	    color: hsla(0, 0%, 100%, .95);
 }
 .main-content .price-table th:first-child, .main-content .price-table td:first-child {
 	text-align: left;
@@ -1195,7 +1197,7 @@ table input[type=checkbox]:before, form input[type=checkbox]:before {
     line-height: 30px;}
 .gcolor span{ margin: 0px 2px;}
 .mvs strong{ margin-left:3px;}
-.copyrighttext{ margin-left:74px;color: hsla(0, 0%, 100%, .95); font-size:15px; }
+.copyrighttext{ margin-left:30px;color: hsla(0, 0%, 100%, .95); font-size:15px; }
 .footermenu{    margin-right: 7px;}
 .buttongropu{ text-align: center;}
 .buttongropu .previous{ background: #ffffff; padding:3px 8px; border: none; border-radius:2px;margin-right: 8px;
@@ -1352,13 +1354,13 @@ table input[type=checkbox]:before, form input[type=checkbox]:before {
 
 
 
-thead{background:rgb(30 35 52);position: sticky;top: 0;box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.4);}
+thead{background:rgb(41 47 66);position: sticky;top: 0;box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.4);}
 .setting{padding: 4px 4px !important;  min-width: 40px;}
 tbody tr .gap-2 {position: sticky; left: 0; background:#171f2a;}
 /*tbody tr td:nth-child(2) {position: sticky; left:232px; background:#171f2a;}*/
 thead tr th:nth-child(1) {position: sticky; left:0px;}
 /*thead tr th:nth-child(2) {position: sticky; left:232px; background:#2a374a;}*/
-.price-table thead{position: sticky; top:-25px;z-index: 9;}
+.price-table thead{position: sticky; top:-25px;z-index: 9; }
 .main-content .price-table {overflow-x:scroll;height:530px;	width:100%; margin-right:15px;}
 .sticky-top {position: fixed; background: #151929; padding-right: 12px; top:15px; padding-top:18px; padding-bottom:10px;width:100%;}
 .main-content .mainchart {background-color: #131627;border-radius: 12px;padding-bottom:62px !important;}
@@ -1860,10 +1862,11 @@ thead tr th:nth-child(1) {position: sticky; left:0px;}
 	border-spacing: 0;
 	width: 100%;
 	margin-top:15px;
+	display: inline-block;
 }
 
 .main-content .price-table th:first-child, .main-content .price-table td:first-child {
-	text-align:center;
+	text-align:left;
 }
 .main-content .price-table tr {
 	border-bottom:1px solid rgb(35 38 60);
@@ -2594,7 +2597,7 @@ table input[type=checkbox]:before, form input[type=checkbox]:before {
     line-height: 30px;}
 .gcolor span{ margin: 0px 2px;}
 .mvs strong{ margin-left:3px;}
-.copyrighttext{ margin-left:74px;}
+.copyrighttext{ margin-left:0px;}
 .footermenu{    margin-right: 7px;}
 .buttongropu{ text-align: center;}
 .buttongropu .previous{ background: #ffffff; padding:3px 8px; border: none; border-radius:2px;margin-right: 8px;
@@ -2802,15 +2805,87 @@ thead tr th:nth-child(1) {position: sticky; left:0px; background:#2a374a;}*/
     color: #aaa;
 }
 .has-search{ margin-bottom:15px;}
-.has-search input{ background:#131627; border:1px solid rgb(50, 59, 76);}
-.rightbtn{background: rgb(21, 25, 41);
-    border: 1px solid rgb(50, 59, 76);
+.has-search input{ background: rgb(49 52 68);  border: 1px solid rgb(70 80 98);}
+.rightbtn{background: rgb(49 52 68);  border: 1px solid rgb(70 80 98);
     padding: 5px 15px;
     float: right;
     font-size: 15px;
     margin-left: 10px;
     border-radius: 5px;}
-.fa-line-chart{ font-size:12px;}	
+.fa-line-chart{ font-size:12px;}
+.chartbox{ border:1px solid rgb(51 58 82);  background: #151929 !important; height:265px;}	
+text{ color:#fff !important;}
+tspan{color:#fff !important;}
+.MuiChartsAxis-tickLabel{fill:#58628c !important;}
+.MuiChartsAxis-line{stroke:#58628c333 !important;}
+.css-1b7sp0-MuiLineElement-root{stroke: #118951 !important;}
+.chartbox h3{ color:#f6f6f6; font-size:17px; margin-left:15px; margin-bottom:-4px; margin-top:10px;    font-weight: 500;}
+.chartbox span{ color:#f6f6f6;padding-left: 15px; font-size:14px;}
+.priceup {
+    background: #113b38;
+    padding: 5px 5px 5px 0px;
+    color: #0F3 !important;
+    font-size: 14px !important;
+    border-radius: 4px;
+}
+.pricedown {
+    background:#401f2e;
+    padding: 5px 5px 5px 0px;
+    color: #de333b !important;
+    font-size: 14px !important;
+    border-radius: 4px;
+}
+.css-1khsfb4-MuiResponsiveChart-container>svg{margin-top: -60px;}
+.MuiChartsAxis-root{ display:none !important;}
+.chbox{border:1px solid rgb(50, 59, 76);  margin-left: 27px; border-radius: 10px; padding: 10px;background: rgb(39 44 62);}
+.chboxs{border:1px solid rgb(50, 59, 76);  margin-left: 0px; border-radius: 10px; padding: 10px;background: rgb(39 44 62);}
+.recharts-legend-item-text{color: rgb(62, 191, 129) !important;}
+path[Attributes Style] {    stroke: rgb(0 217 160) !important;}
+
+.tokenlogo{ width:70px; float:left;}
+.tokenlogosection{ padding:0px 15px;}
+.tnames{margin-top: 19px; font-size: 25px;}
+.volume{
+	 background: rgb(62 191 129 / 40%);
+    padding: 5px 10px;
+    border-radius: 5px;
+    vertical-align: middle;
+    font-size: 14px;
+    color: #00ff45;
+	}
+.chartboxs{ margin-bottom:20px;}	
+.chartboxsdetails{ border:1px solid rgb(36, 47, 64); border-radius:10px;}
+.chartboxs{border:1px solid rgb(36, 47, 64); border-radius:10px; padding:15px;}
+.chartboxsdetails img{ width:100%; height:400px; margin-bottom:50px; border-radius:10px;}
+.tokentable tr td{ color:#fff; border-bottom:1px solid rgb(36, 47, 64);    border-left:1px solid rgb(36, 47, 64);    font-size: 13px;  font-weight: 300 !important;}
+.tokentable tr th{ color:#fff; border-bottom:1px solid rgb(36, 47, 64);font-size: 15px; font-weight: 200;}
+.tokentable{ margin-top:20px; margin-bottom:30px; border:1px solid rgb(36, 47, 64); border-radius:10px;}
+.volumes {
+    background: rgb(62 191 129 / 40%);
+    padding: 5px 10px;
+    border-radius: 5px;
+    vertical-align: middle;
+    font-size: 14px;
+    color: #00ff45;
+}
+.progress{height:12px; background: #666666;}
+.chartboxs p{ margin-bottom:0px;color: #fff; font-size:14px;}
+.chartboxs p span{ float:right; color:#fff; font-size:13px;}
+.buyselbox{ margin-bottom:20px;}
+.chartboxs h2{font-size: 24px;}
+.Pairmarket p{ padding:5px 0px; border-bottom:1px solid rgb(36, 47, 64);}
+.detailspage{ padding-bottom:100px;}
+.progress-bar{background-color: #00af5a;}
+
+.ds-dex-table-row {
+    position: relative;
+    display: contents;
+    grid-template-columns: var(--ds-dex-screener-column-layout);
+}
+.rowbox .text-red-500{ color:red;}
+.rowbox .text-green-500{color:#1dcb1d;}
+circle{fill: rgb(62, 191, 129) !important;}
+
 
 
 
