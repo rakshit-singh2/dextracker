@@ -2911,6 +2911,43 @@ circle{fill: rgb(62, 191, 129) !important;}
 .asset-list{ height:160px; overflow-y: scroll;}
 .has-search .form-control{color: #ffffff;}
 
+.tokendetailspage{ padding:20px;}
+.tokendetailspage h1{ color:#fff; font-size:28px; margin-bottom:35px;    font-weight: 500;}
+.tokendetailspage span{ color:#ddd;}
+.dlogo{ width:34px;}
+.price{ font-size:26px; padding-right:10px;}
+.time{ padding-left:10px;}
+.high{ float:right;}
+.low b{ color:#fff;}
+.high b{ color:#fff;}
+.progress {
+    height: 9px !important;
+    background: #666666;
+    margin-bottom: 4px;
+}
+.tag ul{ padding-left:0px;}
+.tag ul li {
+    background: #282b37;
+    display: inline;
+    padding: 5px 10px;
+    margin-right: 8px;
+    border-radius: 4px;
+    font-size: 14px;
+}
+.dtab ul{ padding-left:24px;}
+.tag h3{ font-size:18px; color:#adadad;}
+.tokendetails{ padding-right:50px;}
+.gp{ width:100%;}
+.TokenMetrics{ background:#151929; padding:15px; border:1px solid #313852; border-radius:20px;}
+.TokenMetrics ul li span{ float:right;font-size:14px; color:#fff;}
+.TokenMetrics ul{ padding-left:0px;}
+.TokenMetrics ul li{ border-bottom:1px solid #313852; padding:8px 8px; font-size:13px;}
+.dtab ul li{ display:inline; padding:5px 10px; border:1px solid #313852; margin-right:8px; border-radius:5px;}
+.tinfo{ margin-top:20px; padding-bottom:50px;}
+.tinfo h3{ font-size:28px;}
+.tinfo p{ font-size:14px; color:#d7d7d7;}
+.TokenMetrics ul li b{color:#adadad;font-size:14px;}
+.TokenMetrics h3{ font-size:22px;}
 
 
 

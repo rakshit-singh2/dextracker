@@ -5,6 +5,7 @@ import TokenRow from "../../Components/TokenRow/TokenRow";
 import { Link, useParams } from "react-router-dom";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, ReferenceLine } from 'recharts';
 import { BeatLoader } from "react-spinners";
+import Search from "../../Components/Search/Search";
 
 async function getChains(blockchain) {
     // Define Axios requests
@@ -213,10 +214,7 @@ function List() {
                 <div className="centercontent container-fluid main-content px-2">
                     <div className="row chartboxs">
                         <div className="col-6">
-                            <div className="form-group has-search">
-                                <span className="fa fa-search form-control-feedback"></span>
-                                <input type="text" className="form-control" placeholder="Search for token, pair, wallet, ens, token address etc.." />
-                            </div>
+                            <Search/>
                         </div>
                         <div className="col-6">
                             <span className="rightbtn">Connect </span>

@@ -1,26 +1,51 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
+import Search from "../../Components/Search/Search"
+import PriceChart from '../../Components/PriceTradeChartSeach/PriceChart';
+import { BeatLoader } from 'react-spinners';
 
 export default function SearchShow() {
     const { name } = useParams();
 
     const [results, setResults] = useState([]);
-    const [loading, setLoading] = useState(false);
+    const [metadata, setMetadata] = useState(null);  // State for metadata
+    const [history, setHistory] = useState([]);  // State for historical data
+    const [loading, setLoading] = useState(true);  // Set initial loading to true
     const [error, setError] = useState(null);
+    const [showAllTags, setShowAllTags] = useState(false);
+
+    const [lowPrice, setLowPrice] = useState(null);
+    const [highPrice, setHighPrice] = useState(null);
 
     // Fetch the data when the component mounts or `name` changes
     useEffect(() => {
         const fetchResults = async () => {
             setLoading(true);
             try {
-                const response = await fetch(`https://api.mobula.io/api/1/search?input=${name}`);
-                if (!response.ok) {
-                    throw new Error('Failed to fetch results');
+                // Fetch market data
+                const marketResponse = await fetch(`https://api.mobula.io/api/1/market/data?asset=${name}`);
+                if (!marketResponse.ok) {
+                    throw new Error('Failed to fetch market data');
                 }
+                const marketData = await marketResponse.json();
+                setResults(marketData.data);  // Set market data
 
-                const data = await response.json();
-                console.log(data);
-                setResults(data.data);
+                // Fetch metadata data
+                const metadataResponse = await fetch(`https://api.mobula.io/api/1/metadata?asset=${name}`);
+                if (!metadataResponse.ok) {
+                    throw new Error('Failed to fetch metadata');
+                }
+                const metadataData = await metadataResponse.json();
+                setMetadata(metadataData.data);  // Set metadata
+
+                // Fetch historical data
+                const historyResponse = await fetch(`https://api.mobula.io/api/1/market/history?asset=${name}`);
+                if (!historyResponse.ok) {
+                    throw new Error('Failed to fetch historical data');
+                }
+                const historyData = await historyResponse.json();
+                setHistory(historyData.data);  // Set historical data
+
             } catch (error) {
                 console.log(error);
                 setError(error.message);
@@ -34,81 +59,164 @@ export default function SearchShow() {
 
     // Log results when they change
     useEffect(() => {
-        if (results.length > 0) {
-            console.log(results);
+        if (results) {
+            console.log('Market Data:', results);
         }
     }, [results]);
+
+    useEffect(() => {
+        if (metadata) {
+            console.log('Metadata:', metadata);
+        }
+    }, [metadata]);
+
+    useEffect(() => {
+        if (history) {
+            console.log('Historical Data:', history);
+        }
+    }, [history]);
 
     const formatNumber = (number) => {
         if (number === undefined || number === null || isNaN(number)) {
             return '0.00';
         }
-        if (number >= 1000000000) {
-            return `${(number / 1000000000).toFixed(2)}B`;
-        } else if (number >= 1000000) {
-            return `${(number / 1000000).toFixed(2)}M`;
-        } else if (number >= 1000) {
-            return `${(number / 1000).toFixed(2)}K`;
-        }
-        return `${number.toFixed(2)}`;
+        return number.toLocaleString();  // Formats the number with commas
     };
 
+    const handleSeeMoreClick = () => {
+        setShowAllTags(!showAllTags);
+    };
+
+    useEffect(() => {
+        if (history && history.price_history) {
+            // Get current time
+            const currentTime = Date.now();
+
+            // Filter the price history data for the last hour (3600000 ms = 1 hour)
+            const lastHourData = history.price_history.filter(item => {
+                return currentTime - item[0] <= 86400000;  // 1 hour in milliseconds
+            });
+
+            // Calculate the lowest and highest prices in the last hour data
+            const prices = lastHourData.map(item => item[1]);
+            setLowPrice(Math.min(...prices));
+            setHighPrice(Math.max(...prices));
+        }
+    }, [history]);
+
+    const calculateProgress = () => {
+        if (highPrice !== null && lowPrice !== null && results.price) {
+            const progress = ((results.price - lowPrice) / (highPrice - lowPrice)) * 100;
+            return Math.min(Math.max(progress, 0), 100);
+        }
+        return 0;
+    };
+
+
     return (
-        <div className='page-content-wrapper'>
-            {loading ? <p>Loading...</p> : error ? <p>{error}</p> : (
-                <div>
-                    {results.map((token, index) => (
-                        <div key={index} className="token-card">
-                            <h1>{token.name}</h1>
-                            <img src={token.logo} alt={token.name} style={{ width: 50, height: 50 }} />
-                            <p>Symbol: {token.symbol}</p>
-                            <p>Price: ${formatNumber(token.price)}</p>
-                            <p>Market Cap: {formatNumber(token.market_cap)}</p>
-                            <p>Liquidity: {formatNumber(token.liquidity)}</p>
-                            <p>24h Volume: {formatNumber(token.volume)}</p>
-                            
-                            <div>
-                                <strong>Blockchains:</strong>
+        <>
+            {loading ? <>
+                <div className="page-content-wrapper h-screen mt-4 spinner-overlay flex justify-center items-center">
+                    <BeatLoader color="#3498db" size={30} />
+                </div>
+
+            </> : error ? <p>{error}</p> : (
+
+                <div className='page-content-wrapper mt-4'>
+                    <div className="col-6">
+                        <Search />
+                    </div>
+                    <div class="tokendetailspage row px-3 px-md-4 py-3 py-lg-4 ">
+
+                        <div className='col-md-6 tokendetails'>
+                            <h1><img className="dlogo" src={results.logo ? results.logo : '/img/tokenlogo/ethereum.png'}
+                                alt="Logo" /> {results.name} <span>{results.symbol}</span></h1>
+                            <p>
+                                <span className='price'>${formatNumber(results.price)} </span>
+                                <span className='priceup'>{formatNumber(results.price_change_24h)}</span>
+                                <span className='time'>24H</span>
+                            </p>
+                            <div className="progress">
+                                <div className="progress-bar" role="progressbar"
+                                    style={{ width: `${calculateProgress()}%` }}
+                                    aria-valuenow={calculateProgress()}
+                                    aria-valuemin="0" aria-valuemax="100">
+                                </div>
+                            </div>
+                            <span className='low'>Low <b>${lowPrice !== null ? formatNumber(lowPrice) : 'N/A'}</b></span>
+                            <span className='high'>High <b>${highPrice !== null ? formatNumber(highPrice) : 'N/A'}</b></span>
+                        </div>
+
+                        <div className='col-md-6 tag'>
+                            <h3>Tags</h3>
+                            {metadata.tags && metadata.tags.length > 0 ? (
                                 <ul>
-                                    {token.blockchains.map((blockchain, idx) => (
-                                        <li key={idx}>{blockchain}</li>
+                                    {metadata.tags.slice(0, showAllTags ? metadata.tags.length : 4).map((tag, index) => (
+                                        <li key={index}>{tag}</li>
                                     ))}
                                 </ul>
-                            </div>
+                            ) : (
+                                <p>No tags available</p>
+                            )}
 
-                            <div>
-                                <strong>Contracts:</strong>
-                                <ul>
-                                    {token.contracts.map((contract, idx) => (
-                                        <li key={idx}><a href={`https://etherscan.io/address/${contract}`} target="_blank" rel="noopener noreferrer">{contract}</a></li>
-                                    ))}
-                                </ul>
-                            </div>
+                            {/* "See More" button */}
+                            {metadata.tags.length > 4 && (
+                                <h3
+                                    className="mouse-hover"
+                                    onClick={handleSeeMoreClick}
+                                    style={{ cursor: 'pointer' }} // Adds a pointer cursor to indicate it's clickable
+                                >
+                                    {showAllTags ? 'See Less' : 'See More'}
+                                </h3>
+                            )}
 
-                            <div>
-                                <strong>Pairs:</strong>
-                                <ul>
-                                    {token.pairs.map((pair, idx) => (
-                                        <li key={idx}>
-                                            <div>
-                                                <strong>{pair.token0.name} / {pair.token1.name}</strong>
-                                                <div>Price: ${formatNumber(pair.price)}</div>
-                                                <div>Volume 24h: {formatNumber(pair.volume24h)}</div>
-                                                <div>Liquidity: {formatNumber(pair.liquidity)}</div>
-                                            </div>
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
+                            <ul>
+                                <Link to={metadata.website} target='_blank'><li><i class="fa fa-link"></i> Website</li></Link>
+                                <li><i class="fa fa-search"></i> Contracts</li>
+                                <li><i class="fa fa-user"></i> Community</li>
+                            </ul>
+                        </div>
 
-                            <div>
-                                <a href={token.website} target="_blank" rel="noopener noreferrer">Website</a>
-                                <a href={token.twitter} target="_blank" rel="noopener noreferrer">Twitter</a>
+                    </div>
+
+                    <div className='col-md-12 dtab'>
+                        <ul>
+                            <li>Essentials</li>
+                            <li>Market</li>
+                            <li>Fundraising</li>
+                            <li>Vesting</li>
+                        </ul>
+                    </div>
+
+
+                    <div class="tokendetailspage row px-3 px-md-4 py-3 py-lg-4 ">
+
+                        <div className='col-md-8'>
+                            <PriceChart priceHistory={history.price_history} historyName={history.name} historySymbol={history.symbol} />
+                            <div className='tinfo'>
+                                <h3>About {results.name} <span className='text-sm'>({results.symbol})</span></h3>
+                                <p>{metadata.description}</p>
                             </div>
                         </div>
-                    ))}
+                        <div className='col-md-4'>
+                            <div className='TokenMetrics'>
+                                <h3>Token Metrics</h3>
+                                <ul>
+                                    <li><b>Total Volume</b> <span>{`$${formatNumber(results.volume)}`}</span></li>
+                                    <li><b>Market Cap </b> <span>{`$${formatNumber(results.market_cap)}`}</span></li>
+                                    <li><b>Fully Diluted Val.</b> <span>{`$${formatNumber(results.market_cap_diluted)}`}</span></li>
+                                    <li><b>CEX Volume (24h)</b> <span>{`$${formatNumber(results.volume_7d)}`}</span></li>
+                                    <li><b>DEX Volume (24h)</b> <span>{`$${formatNumber(results.volume_7d)}`}</span></li>
+                                    <li><b>Liquidity</b> <span>{`$${formatNumber(results.liquidity)}`}</span></li>
+                                    <li><b>Circ. Supply</b> <span>{`${formatNumber(results.circulating_supply)} ${results.symbol}`}</span></li>
+                                    <li><b>Total Supply</b> <span>{`${formatNumber(results.total_supply)} ${results.symbol}`}</span></li>
+                                    <li><b>Rank</b> <span>{results.rank}</span></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             )}
-        </div>
+        </>
     );
 }
