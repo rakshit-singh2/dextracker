@@ -4,6 +4,7 @@ import Header from "../../Components/Header/Header";
 import TokenRow from "../../Components/TokenRow/TokenRow";
 import { Link, useParams } from "react-router-dom";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, ReferenceLine } from 'recharts';
+import { BeatLoader } from "react-spinners";
 
 async function getChains(blockchain) {
     // Define Axios requests
@@ -326,9 +327,11 @@ function List() {
                                                     <TokenRow key={index} pool={pairs} />
                                                 ))
                                             ) : (
-                                                <tr>
-                                                    <td colSpan="11">No tokens available or loading...</td>
-                                                </tr>
+                                                <>
+                                                    <div className="spinner-overlay">
+                                                        <BeatLoader color="#3498db" size={30} />
+                                                    </div>
+                                                </>
                                             )
                                         }
                                     </tbody>

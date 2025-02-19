@@ -4,6 +4,8 @@ import Header from "../../Components/Header/Header";
 import TokenRow from "../../Components/TokenRow/TokenRow";
 import { Link, useParams } from "react-router-dom";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, ReferenceLine } from 'recharts';
+import { BeatLoader } from "react-spinners";
+import Search from "../Search/Search";
 
 async function getChains(blockchain) {
     // Define Axios requests
@@ -13,6 +15,7 @@ async function getChains(blockchain) {
     const fetchPairs = axios.get(
         `https://api.mobula.io/api/1/market/blockchain/pairs?blockchain=${blockchain}`
     );
+
     // Wait for both requests to complete
     const [chain, pairs] = await Promise.all([fetchChain, fetchPairs]);
 
@@ -103,7 +106,6 @@ const CustomTooltip = ({ payload, label, active }) => {
 function Home() {
     const chain = 'avalanche';
     const [data, setData] = useState({ blockchain: '', pairs: [] });
-    console.log({ data })
     const lineChartData = formatLineChartData(blockchainData.data.volume_history);
     const lineChartLiquidity = formatLineChartData(blockchainData.data.liquidity_history);
     const lineCharttoken = formatLineChartData(blockchainData.data.tokens_history);
@@ -212,10 +214,7 @@ function Home() {
                 <div className="centercontent container-fluid main-content px-2">
                     <div className="row chartboxs">
                         <div className="col-6">
-                            <div className="form-group has-search">
-                                <span className="fa fa-search form-control-feedback"></span>
-                                <input type="text" className="form-control" placeholder="Search for token, pair, wallet, ens, token address etc.." />
-                            </div>
+                            <Search />
                         </div>
                         <div className="col-6">
                             <span className="rightbtn">Connect </span>
@@ -326,9 +325,11 @@ function Home() {
                                                     <TokenRow key={index} pool={pairs} />
                                                 ))
                                             ) : (
-                                                <tr>
-                                                    <td colSpan="11">No tokens available or loading...</td>
-                                                </tr>
+                                                <>
+                                                    <div className="spinner-overlay">
+                                                        <BeatLoader color="#3498db" size={30} />
+                                                    </div>
+                                                </>
                                             )
                                         }
                                     </tbody>

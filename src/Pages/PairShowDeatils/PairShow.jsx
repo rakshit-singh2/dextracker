@@ -398,7 +398,7 @@ const PairShow = () => {
                                     <h2>Pair Metrics</h2>
                                     <p>Total Supply: <span>{formatNumber(totalSupplyToken0 + totalSupplyToken1)} {token0?.symbol}</span></p>
                                     <p>{data.pairData?.token0.name} Pooled: <span>{formatNumber(btcPooled)} {token0?.symbol}</span></p>
-                                    <p>{data.pairData?.token1.name} Pooled: <span>{ethPooled} {token1?.symbol}</span></p>
+                                    <p>{data.pairData?.token1.name} Pooled: <span>{formatNumber(ethPooled)} {token1?.symbol}</span></p>
                                     <p>Liquidity: <span>${formatNumber(liquidity)}</span></p>
 
                                     <p>Volume: <span>${formatNumber(volume24h)}</span></p>

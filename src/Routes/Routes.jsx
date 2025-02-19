@@ -22,6 +22,7 @@ export const router = createBrowserRouter([
       { path: 'chain/:chain', element: LazyComponent(() => import("../Pages/List/List")) },
       { path: 'pair/:address', element: LazyComponent(() => import("../Pages/PairShowDeatils/PairShow")) },
       { path: 'chain/:chain/pair/:address', element: LazyComponent(() => import("../Pages/PairShowDeatils/PairShow")) },
+      { path: '/asset/:name', element: LazyComponent(() => import("../Pages/SearchShow/SearchShow")) },
     ],
   },
 ]);

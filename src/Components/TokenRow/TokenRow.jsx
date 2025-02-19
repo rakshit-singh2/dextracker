@@ -1,7 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import dummy from "../../../public/img/dummyimage.png"
-
 
 const TokenRow = ({ pool }) => {
   // Extract token data for readability
@@ -19,7 +17,7 @@ const TokenRow = ({ pool }) => {
     >
       <tr>
         <td>
-          <img id="logo" src={pool.pair.exchange.logo || token0.logo || token1.logo||  '/img/dummyimage.png'} />
+          <img id="logo" src={pool.pair.exchange.logo || token0.logo || token1.logo || '/img/dummyimage.png'} />
         </td>
         <td>
           {token0 ? token0.symbol : "N/A"}/{token1 ? token1.symbol : "N/A"}
