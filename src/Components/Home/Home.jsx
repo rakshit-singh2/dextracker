@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Header from "../../Components/Header/Header";
 import TokenRow from "../../Components/TokenRow/TokenRow";
-import { Link, useParams } from "react-router-dom";
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, ReferenceLine } from 'recharts';
 import { BeatLoader } from "react-spinners";
 import Search from "../Search/Search";
+import * as echarts from 'echarts';
+import moment from 'moment'
 
 async function getChains(blockchain) {
     // Define Axios requests
@@ -80,7 +80,6 @@ const blockchainData = {
 };
 
 
-// Format the data into something usable for a LineChart (map timestamp and value)
 const formatLineChartData = (history) => {
     return history.map(([timestamp, value]) => ({
         timestamp: new Date(timestamp).toLocaleString(), // Format timestamp as a readable date
@@ -88,24 +87,11 @@ const formatLineChartData = (history) => {
     }));
 };
 
-// Custom Tooltip Component
-const CustomTooltip = ({ payload, label, active }) => {
-    if (active && payload && payload.length) {
-        const { value } = payload[0]; // Assuming you only have one series in the chart
-        return (
-            <div className="custom-tooltip" style={{ backgroundColor: 'rgba(0, 0, 0, 0.8)', color: 'white', padding: '10px', borderRadius: '5px' }}>
-                <p>{label}</p>
-                <p>Volume: {value}</p>
-            </div>
-        );
-    }
-    return null;
-};
-
 
 function Home() {
     const chain = 'avalanche';
     const [data, setData] = useState({ blockchain: '', pairs: [] });
+    const [activeFilter, setActiveFilter] = useState('all'); 
     const lineChartData = formatLineChartData(blockchainData.data.volume_history);
     const lineChartLiquidity = formatLineChartData(blockchainData.data.liquidity_history);
     const lineCharttoken = formatLineChartData(blockchainData.data.tokens_history);
@@ -117,6 +103,16 @@ function Home() {
         };
         fetchData();
     }, [chain]);
+
+
+    const handleFilterClick = (type) => {
+        setActiveFilter(type); // Update the active filter on button click
+    };
+
+
+    const filteredPairs = activeFilter === 'all' 
+        ? data.pairs 
+        : data.pairs.filter(pair => pair.pair.type === activeFilter);
 
 
     // const formatChartData = (history) => {
@@ -206,6 +202,126 @@ function Home() {
     //         </div>
     //     );
     // };
+    // ECharts initialization
+    useEffect(() => {
+        // Initialize charts after the component is mounted
+        const volumeChart = echarts.init(document.getElementById('volumeChart'));
+        const liquidityChart = echarts.init(document.getElementById('liquidityChart'));
+        const tokenChart = echarts.init(document.getElementById('tokenChart'));
+    
+        const commonOptions = {
+            tooltip: {
+                trigger: 'axis', // Trigger tooltip when hovering over the axis
+                axisPointer: { 
+                    type: 'line', 
+                    lineStyle: { 
+                        color: '#4bc0c0' 
+                    } 
+                },
+                formatter: (params) => {
+                    const { value, name } = params[0]; // Access the data point
+                    const formattedDate = moment(name).format('MMM D, YYYY hh:mm A'); // Format the date for tooltip
+                    return `
+                        <div style="background: rgba(0, 0, 0, 0.8); color: white; padding: 10px; border-radius: 5px;">
+                            <p>${formattedDate}</p>
+                            <p>Value: ${value}</p>
+                        </div>`;
+                },
+                // Only show tooltip when hovering over the line
+                showContent: true,
+                backgroundColor: 'rgba(0, 0, 0, 0.7)',
+                borderColor: '#4bc0c0',
+                borderWidth: 1,
+            },
+            grid: { top: '10%', left: '10%', right: '10%', bottom: '10%' },
+            xAxis: {
+                type: 'category',
+                data: lineChartData.map(item => item.timestamp), // Use the formatted timestamp for x-axis
+                axisLabel: {
+                    color: '#4bc0c0',
+                    rotate: 45,
+                    formatter: (value) => moment(value).format('MMM D, YYYY hh:mm A'), // Format x-axis labels
+                }
+            },
+            yAxis: {
+                type: 'value',
+                axisLabel: { color: '#4bc0c0' },
+                axisLine: { lineStyle: { color: '#4bc0c0' } },
+            },
+            series: [
+                {
+                    data: lineChartData.map(item => item.value),
+                    type: 'line',
+                    smooth: true,
+                    lineStyle: {
+                        color: '#4bc0c0',
+                    },
+                    itemStyle: {
+                        color: '#4bc0c0',
+                    },
+                    // Add this to ensure the line is always visible
+                    emphasis: {
+                        itemStyle: {
+                            color: '#4bc0c0',
+                        }
+                    }
+                }
+            ]
+        };
+    
+        // Volume Chart (uses lineChartData)
+        volumeChart.setOption({
+            ...commonOptions,
+            title: { text: 'BNB - Volume History', textStyle: { color: '#fff' } }
+        });
+    
+        // Liquidity Chart (uses lineChartLiquidity)
+        liquidityChart.setOption({
+            ...commonOptions,
+            title: { text: 'BNB - Liquidity History', textStyle: { color: '#fff' } },
+            series: [
+                {
+                    data: lineChartLiquidity.map(item => item.value),
+                    type: 'line',
+                    smooth: true,
+                    lineStyle: {
+                        color: '#4bc0c0',
+                    },
+                    itemStyle: {
+                        color: '#4bc0c0',
+                    }
+                }
+            ]
+        });
+    
+        // Token Chart (uses lineChartToken)
+        tokenChart.setOption({
+            ...commonOptions,
+            title: { text: 'BNB - Token Chart', textStyle: { color: '#fff' } },
+            series: [
+                {
+                    data: lineCharttoken.map(item => item.value),
+                    type: 'line',
+                    smooth: true,
+                    lineStyle: {
+                        color: '#4bc0c0',
+                    },
+                    itemStyle: {
+                        color: '#4bc0c0',
+                    }
+                }
+            ]
+        });
+    
+        // Cleanup on component unmount
+        return () => {
+            volumeChart.dispose();
+            liquidityChart.dispose();
+            tokenChart.dispose();
+        };
+    }, [lineChartData, lineChartLiquidity, lineCharttoken]);
+    
+    
 
     return (
         <>
@@ -225,64 +341,17 @@ function Home() {
                     <div className="row text-black">
                         <div className="col-4">
                             <div className="chbox text-white">
-                                <h6>BNB - Volume History</h6>
-                                <ResponsiveContainer width="100%" height={200}>
-                                    <LineChart data={lineChartData}>
-                                        <CartesianGrid strokeDasharray="3 3" />
-                                        <XAxis dataKey="timestamp" tick={{ fill: '#fff' }} stroke="#000" />
-                                        <YAxis
-                                            tick={{ fill: '#fff' }}
-                                            stroke="#000"
-                                            tickFormatter={(value) => {
-                                                // Convert value to string, slice first 4 digits and return it
-                                                return Math.floor(value).toString().slice(0, 4);
-                                            }}
-                                        />
-                                        <Tooltip content={<CustomTooltip />} />
-                                        <Legend wrapperStyle={{ color: '#000' }} />
-                                        <Line type="monotone" dataKey="value" stroke="#0e5240" />
-                                        <ReferenceLine y={0} stroke="#fff" />
-                                    </LineChart>
-                                </ResponsiveContainer>
+                                <div id="volumeChart" style={{ width: '100', height: '200px' }}></div>
                             </div>
                         </div>
                         <div className="col-4">
                             <div className="chboxs text-white">
-                                <h6>BNB - Liquidity History</h6>
-                                <ResponsiveContainer width="100%" height={200}>
-                                    <LineChart data={lineChartLiquidity}>
-                                        <CartesianGrid strokeDasharray="3 3" />
-                                        <XAxis dataKey="timestamp" tick={{ fill: '#fff' }} stroke="#000" />
-                                        <YAxis
-                                            tick={{ fill: '#fff' }}
-                                            stroke="#000"
-                                            tickFormatter={(value) => {
-                                                // Convert value to string, slice first 4 digits and return it
-                                                return Math.floor(value).toString().slice(0, 4); //Only first 4 digits of the integer part
-                                            }}
-                                        />
-                                        <Tooltip content={<CustomTooltip />} />
-                                        <Legend wrapperStyle={{ color: '#000' }} />
-                                        <Line type="monotone" dataKey="value" stroke="#0e5240" />
-                                        <ReferenceLine y={0} stroke="#fff" />
-                                    </LineChart>
-                                </ResponsiveContainer>
+                                <div id="liquidityChart" style={{ width: '100%', height: '200px' }}></div>
                             </div>
                         </div>
                         <div className="col-4">
                             <div className="chboxs text-white">
-                                <h6>BNB - Token chart</h6>
-                                <ResponsiveContainer width="100%" height={200}>
-                                    <LineChart data={lineCharttoken}>
-                                        <CartesianGrid strokeDasharray="3 3" />
-                                        <XAxis dataKey="timestamp" tick={{ fill: '#fff' }} stroke="#000" />
-                                        <YAxis tick={{ fill: '#fff' }} stroke="#000" />
-                                        <Tooltip content={<CustomTooltip />} />
-                                        <Legend wrapperStyle={{ color: '#000' }} />
-                                        <Line type="monotone" dataKey="value" stroke="#0e5240" />
-                                        <ReferenceLine y={0} stroke="#fff" />
-                                    </LineChart>
-                                </ResponsiveContainer>
+                                <div id="tokenChart" style={{ width: '100%', height: '200px' }}></div>
                             </div>
                         </div>
                     </div>
@@ -290,6 +359,23 @@ function Home() {
                     <div className="col-12">
                         <div className="mainchart px-3 px-md-4 py-3 py-lg-4 ">
                             <h1>Avalanche Chain</h1>
+                            <div className="dtab mt-2">
+                                <button
+                                    onClick={() => handleFilterClick('all')}
+                                    className={activeFilter === 'all' ? 'bg-blue text-white' : ''}  // Apply active class
+                                >
+                                    All
+                                </button>
+                                {[...new Set(data.pairs.map((pair) => pair.pair.type))].map((type, index) => (
+                                    <button
+                                        key={index}
+                                        onClick={() => handleFilterClick(type)}
+                                        className={activeFilter === type ? 'bg-blue text-white' : ''}  // Apply active class
+                                    >
+                                        {type}
+                                    </button>
+                                ))}
+                            </div>
                             <div className="pb-2 price-table scrollme">
                                 <table className="table table-responsive">
                                     <thead>
@@ -319,19 +405,15 @@ function Home() {
                                     </thead>
 
                                     <tbody>
-                                        {
-                                            data && data.pairs && data.pairs.length > 0 ? (
-                                                data.pairs.map((pairs, index) => (
-                                                    <TokenRow key={index} pool={pairs} />
-                                                ))
-                                            ) : (
-                                                <>
-                                                    <div className="spinner-overlay">
-                                                        <BeatLoader color="#3498db" size={30} />
-                                                    </div>
-                                                </>
-                                            )
-                                        }
+                                        {filteredPairs.length > 0 ? (
+                                            filteredPairs.map((pair, index) => (
+                                                <TokenRow key={index} pool={pair} />
+                                            ))
+                                        ) : (
+                                            <div className="spinner-overlay">
+                                                <BeatLoader color="#3498db" size={30} />
+                                            </div>
+                                        )}
                                     </tbody>
                                 </table>
 

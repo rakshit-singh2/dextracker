@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import Search from "../../Components/Search/Search"
-import PriceChart from '../../Components/PriceTradeChartSeach/PriceChart';
+import PriceChart from '../../Components/PriceTradeChartSeach/PriceChart'; // Import your SearchTradeChart component
 import { BeatLoader } from 'react-spinners';
+import SearchTradeChart from '../../Components/SearchTradeChart/SearchTradeChart';
 
 export default function SearchShow() {
     const { name } = useParams();
@@ -16,6 +17,8 @@ export default function SearchShow() {
 
     const [lowPrice, setLowPrice] = useState(null);
     const [highPrice, setHighPrice] = useState(null);
+
+    const [activeChart, setActiveChart] = useState('price');  // State for managing active chart (Price/Trading)
 
     // Fetch the data when the component mounts or `name` changes
     useEffect(() => {
@@ -60,19 +63,19 @@ export default function SearchShow() {
     // Log results when they change
     useEffect(() => {
         if (results) {
-            console.log('Market Data:', results);
+            console.log("Results", results);
         }
     }, [results]);
 
     useEffect(() => {
         if (metadata) {
-            console.log('Metadata:', metadata);
+            console.log("Meta Data", metadata)
         }
     }, [metadata]);
 
     useEffect(() => {
         if (history) {
-            console.log('Historical Data:', history);
+            console.log(history)
         }
     }, [history]);
 
@@ -112,6 +115,10 @@ export default function SearchShow() {
         return 0;
     };
 
+    // Function to toggle between the charts
+    const handleChartSwitch = (chartType) => {
+        setActiveChart(chartType);
+    };
 
     return (
         <>
@@ -119,18 +126,16 @@ export default function SearchShow() {
                 <div className="page-content-wrapper h-screen mt-4 spinner-overlay flex justify-center items-center">
                     <BeatLoader color="#3498db" size={30} />
                 </div>
-
             </> : error ? <p>{error}</p> : (
 
                 <div className='page-content-wrapper mt-4'>
                     <div className="col-6">
                         <Search />
                     </div>
-                    <div class="tokendetailspage row px-3 px-md-4 py-3 py-lg-4 ">
+                    <div className="tokendetailspage row px-3 px-md-4 py-3 py-lg-4 ">
 
-                        <div className='col-md-6 tokendetails'>
-                            <h1><img className="dlogo" src={results.logo ? results.logo : '/img/tokenlogo/ethereum.png'}
-                                alt="Logo" /> {results.name} <span>{results.symbol}</span></h1>
+                        <div className='col-md-5 tokendetails'>
+                            <h1><img className="dlogo" src={results.logo ? results.logo : '/img/tokenlogo/ethereum.png'} alt="Logo" /> {results.name} <span>({results.symbol})</span> <span className='hastag'>#{results.rank}</span></h1>
                             <p>
                                 <span className='price'>${formatNumber(results.price)} </span>
                                 <span className='priceup'>{formatNumber(results.price_change_24h)}</span>
@@ -147,17 +152,18 @@ export default function SearchShow() {
                             <span className='high'>High <b>${highPrice !== null ? formatNumber(highPrice) : 'N/A'}</b></span>
                         </div>
 
-                        <div className='col-md-6 tag'>
-                            <h3>Tags</h3>
-                            {metadata.tags && metadata.tags.length > 0 ? (
-                                <ul>
-                                    {metadata.tags.slice(0, showAllTags ? metadata.tags.length : 4).map((tag, index) => (
-                                        <li key={index}>{tag}</li>
-                                    ))}
-                                </ul>
-                            ) : (
-                                <p>No tags available</p>
+                        <div className='col-md-7 tag'>
+                            {metadata.tags && metadata.tags.length > 0 && (
+                                <div>
+                                    <h3>Tags</h3>
+                                    <ul className='moretag'>
+                                        {metadata.tags.slice(0, showAllTags ? metadata.tags.length : 4).map((tag, index) => (
+                                            <li key={index}>{tag}</li>
+                                        ))}
+                                    </ul>
+                                </div>
                             )}
+
 
                             {/* "See More" button */}
                             {metadata.tags.length > 4 && (
@@ -171,33 +177,77 @@ export default function SearchShow() {
                             )}
 
                             <ul>
-                                <Link to={metadata.website} target='_blank'><li><i class="fa fa-link"></i> Website</li></Link>
-                                <li><i class="fa fa-search"></i> Contracts</li>
-                                <li><i class="fa fa-user"></i> Community</li>
+                                <Link to={metadata.website} target='_blank'><li><i className="fa fa-link"></i> Website</li></Link>
+                                <li className='contracts'>
+                                    <i className="fa fa-search"></i> Contracts <i className="fa fa-angle-down"></i>
+
+                                    <ul className='subnav mt-2'>
+                                        {metadata.blockchains.map((blockchain, index) => (
+                                            <li key={index}>
+                                                <a href='#'>
+                                                    {blockchain}
+                                                </a>
+                                            </li>
+                                        ))}
+                                    </ul>
+
+
+                                </li>
+
+                                <li className='contracts'>
+                                    <i className="fa fa-user"></i> Community <i className="fa fa-angle-down"></i>
+                                    <ul className='subnav mt-2'>
+                                        {metadata && [
+                                            { name: 'Twitter', url: metadata.twitter, icon: 'fa-twitter' },
+                                            { name: 'Discord', url: metadata.discord, icon: 'fa-simplybuilt' },
+                                            { name: 'Chat', url: metadata.chat, icon: 'fa-comment' }
+                                        ].map((social, index) => (
+                                            social.url ? (
+                                                <li key={index}>
+                                                    <a href={social.url} target='_blank'>
+                                                        <i className={`fa ${social.icon}`}></i> {social.name}
+                                                    </a>
+                                                </li>
+                                            ) : null
+                                        ))}
+                                    </ul>
+
+                                </li>
                             </ul>
                         </div>
-
                     </div>
 
-                    <div className='col-md-12 dtab'>
-                        <ul>
-                            <li>Essentials</li>
-                            <li>Market</li>
-                            <li>Fundraising</li>
-                            <li>Vesting</li>
-                        </ul>
-                    </div>
-
-
-                    <div class="tokendetailspage row px-3 px-md-4 py-3 py-lg-4 ">
+                    <div className="tokendetailspage row px-3 px-md-4 py-3 py-lg-4 ">
 
                         <div className='col-md-8'>
-                            <PriceChart priceHistory={history.price_history} historyName={history.name} historySymbol={history.symbol} />
+                            <div className='dtab'>
+                                <button
+                                    onClick={() => handleChartSwitch('price')}
+                                    className={activeChart === 'price' ? 'active' : ''}
+                                >
+                                    Price Chart
+                                </button>
+                                <button
+                                    onClick={() => handleChartSwitch('trading')}
+                                    className={activeChart === 'trading' ? 'active' : ''}
+                                >
+                                    Trading Chart
+                                </button>
+                            </div>
+
+                            {/* Conditionally render the active chart */}
+                            {activeChart === 'price' ? (
+                                <PriceChart priceHistory={history.price_history} historyName={history.name} historySymbol={history.symbol} />
+                            ) : (
+                                <SearchTradeChart priceHistory={history.price_history} historyName={history.name} historySymbol={history.symbol} />
+                            )}
+
                             <div className='tinfo'>
                                 <h3>About {results.name} <span className='text-sm'>({results.symbol})</span></h3>
                                 <p>{metadata.description}</p>
                             </div>
                         </div>
+
                         <div className='col-md-4'>
                             <div className='TokenMetrics'>
                                 <h3>Token Metrics</h3>
@@ -214,6 +264,7 @@ export default function SearchShow() {
                                 </ul>
                             </div>
                         </div>
+
                     </div>
                 </div>
             )}

@@ -2804,6 +2804,8 @@ thead tr th:nth-child(1) {position: sticky; left:0px; background:#2a374a;}*/
     pointer-events: none;
     color: #aaa;
 }
+.hastag{ padding-left:20px; color:#999;}
+.subnav li{}
 .has-search{ margin-bottom:15px;}
 .has-search input{ background: rgb(49 52 68);  border: 1px solid rgb(70 80 98);}
 .rightbtn{background: rgb(49 52 68);  border: 1px solid rgb(70 80 98);
@@ -2844,7 +2846,7 @@ path[Attributes Style] {    stroke: rgb(0 217 160) !important;}
 
 .tokenlogo{ width:70px; float:left;}
 .tokenlogosection{ padding:0px 15px;}
-.tnames{margin-top: 19px; font-size: 25px;}
+.tnames{margin-top: 19px; font-size:22px;}
 .volume{
 	 background: rgb(62 191 129 / 40%);
     padding: 5px 10px;
@@ -2885,6 +2887,27 @@ path[Attributes Style] {    stroke: rgb(0 217 160) !important;}
 .rowbox .text-red-500{ color:red;}
 .rowbox .text-green-500{color:#1dcb1d;}
 circle{fill: rgb(62, 191, 129) !important;}
+.chainbtn button{background:rgb(39 44 62); border: none; color: #fff; padding: 7px 15px; border-radius: 6px; margin-right:8px;}
+.chainbtn{ margin-top:15px;}
+.dtab button{background:rgb(39 44 62); border: none; color: #fff; padding: 7px 15px; border-radius: 6px; margin-right:8px;}
+.subnav li{display: inline-block !important; width:100%; border-bottom: 1px solid #39404a; border-radius: 0px !important;}
+.tag ul li {
+    background: #303446;
+    display: inline;
+    padding: 5px 10px;
+    margin-right: 8px;
+    border-radius: 4px;
+    font-size: 14px;
+
+}
+.moretag li{ line-height:35px;}
+.tag ul li:hover{background: #41475e;}
+.subnav li img{ width:22px;}
+.contracts{ position:relative;}
+.contracts:hover .subnav{ display:block;}
+.subnav{ display:none;}
+.subnav{ position:absolute; left:0px; top:27px; width: 200px;}
+
 
 
 

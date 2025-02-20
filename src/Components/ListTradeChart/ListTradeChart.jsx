@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import * as echarts from 'echarts'; // Import ECharts
 import moment from 'moment'; // To format timestamps
 
-const PriceChart = ({ priceHistory, historyName, historySymbol }) => {
+const ListTradeChart = ({ priceHistory, historyName, historySymbol }) => {
     const chartRef = useRef(null); // Ref to the chart container
 
     useEffect(() => {
@@ -10,8 +10,8 @@ const PriceChart = ({ priceHistory, historyName, historySymbol }) => {
             const chartInstance = echarts.init(chartRef.current); // Initialize ECharts instance
 
             // Format the price history for charting
-            const labels = priceHistory.map(item => moment(item[0]).format('MMM D, YYYY'));
-            const prices = priceHistory.map(item => item[1]);
+            const labels = priceHistory.map(item => moment(item.time).format('MMM D, YYYY')); // Use the 'time' field to format date
+            const prices = priceHistory.map(item => item.close); // Use the 'close' field for the price
 
             // Define the chart options
             const chartOptions = {
@@ -76,8 +76,8 @@ const PriceChart = ({ priceHistory, historyName, historySymbol }) => {
     }
 
     return (
-        <div className="chart-container mt-3" style={{ width: '100%', height: '400px' }} ref={chartRef}></div>
+        <div className="chart-container bg-trasparent" style={{ width: '100%', height: '400px',  backgroundColor: 'transparent'}} ref={chartRef}></div>
     );
 };
 
-export default PriceChart;
+export default ListTradeChart;

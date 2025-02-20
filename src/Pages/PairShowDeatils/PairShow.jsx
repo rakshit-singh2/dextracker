@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import ListTradeChart from '../../Components/ListTradeChart/ListTradeChart';
 
 // Function to fetch asset data
 async function fetchAssetData(address) {
@@ -11,11 +12,15 @@ async function fetchAssetData(address) {
         const trade = await axios.get(
             `https://api.mobula.io/api/1/market/trades/pair?address=${address}`
         );
+        const history = await axios.get(
+            `https://api.mobula.io/api/1/market/history/pair?address=${address}`
+        );
         // Wait for both requests to complete
-        const [pairData, tradeData] = await Promise.all([response, trade]);
+        const [pairData, tradeData] = await Promise.all([response, trade, history]);
         return {
             pairData: pairData.data.data,
             tradeData: tradeData?.data?.data,
+            historyData: history?.data,
         };
     } catch (error) {
         console.error('Error fetching data:', error.response ? error.response.data : error.message);
@@ -28,7 +33,6 @@ const PairShow = () => {
     const [data, setData] = useState(null); // State for storing fetched data
     const [loading, setLoading] = useState(true); // State to track loading status
     const [error, setError] = useState(null); // State for error handling
-
     // Fetch data when the component mounts or address changes
     useEffect(() => {
         const getData = async () => {
@@ -41,10 +45,9 @@ const PairShow = () => {
             setLoading(true); // Start loading
             try {
                 const fetchedData = await fetchAssetData(address);
-                console.log('Fetched Data:', fetchedData);  // Log fetched data for debugging
 
                 // Check if the data is valid
-                if (fetchedData && fetchedData.pairData && fetchedData.tradeData) {
+                if (fetchedData && fetchedData.pairData && fetchedData.tradeData && fetchedData.historyData) {
                     setData(fetchedData); // Set the fetched data
                     setError(null); // Clear any previous errors
                 } else {
@@ -254,7 +257,12 @@ const PairShow = () => {
                     <div className='row'>
                         <div className='col-md-8'>
                             <div className='chartboxsdetails'>
-                                <img className='grap' src='/img/grap.png' />
+                                <ListTradeChart
+                                    priceHistory={data.historyData.data}  // Accessing the history data correctly
+                                    historyName={token0?.name}  // Assuming you want to show token0's name
+                                    historySymbol={token0?.symbol} // Assuming you want to show token0's symbol
+                                />
+
                             </div>
 
                             <table class="table tokentable">
@@ -274,7 +282,7 @@ const PairShow = () => {
                                         <tr className='rowbox' key={index}>
                                             <th
                                                 className={`${trade.type === 'buy' ? 'text-green-500' : 'text-red-500'
-                                                }`}
+                                                    }`}
                                             >
                                                 {trade.type === 'buy' ? 'Buy' : 'Sell'}
                                             </th>
@@ -323,34 +331,34 @@ const PairShow = () => {
                                     <p>Buys   <span>Sells</span></p>
                                     <p> {getFormattedAmount(totalBuys)} <span>{getFormattedAmount(totalSells)}</span></p>
                                     <div className="progress" style={{ backgroundColor: "red", borderRadius: "5px" }}>
-                                    <div className="progress">
-                                        <div
-                                            className="progress-bar "
-                                            role="progressbar"
-                                            style={{
-                                                width: `${buyPercentage}%`,
-                                                backgroundColor: 'green' // Green for buys
-                                            }}
-                                            aria-valuenow={buyPercentage}
-                                            aria-valuemin="0"
-                                            aria-valuemax="100"
-                                        >
-                                            {buyPercentage.toFixed(2)}%
+                                        <div className="progress">
+                                            <div
+                                                className="progress-bar "
+                                                role="progressbar"
+                                                style={{
+                                                    width: `${buyPercentage}%`,
+                                                    backgroundColor: 'green' // Green for buys
+                                                }}
+                                                aria-valuenow={buyPercentage}
+                                                aria-valuemin="0"
+                                                aria-valuemax="100"
+                                            >
+                                                {buyPercentage.toFixed(2)}%
+                                            </div>
+                                            <div
+                                                className="progress-bar"
+                                                role="progressbar"
+                                                style={{
+                                                    width: `${100 - buyPercentage}%`,
+                                                    backgroundColor: 'red' // Red for sells
+                                                }}
+                                                aria-valuenow={100 - buyPercentage}
+                                                aria-valuemin="0"
+                                                aria-valuemax="100"
+                                            >
+                                                {(100 - buyPercentage).toFixed(2)}%
+                                            </div>
                                         </div>
-                                        <div
-                                            className="progress-bar"
-                                            role="progressbar"
-                                            style={{
-                                                width: `${100 - buyPercentage}%`,
-                                                backgroundColor: 'red' // Red for sells
-                                            }}
-                                            aria-valuenow={100 - buyPercentage}
-                                            aria-valuemin="0"
-                                            aria-valuemax="100"
-                                        >
-                                            {(100 - buyPercentage).toFixed(2)}%
-                                        </div>
-                                    </div>
                                     </div>
                                 </div>
 
@@ -392,7 +400,6 @@ const PairShow = () => {
                                 <p>Volume:: <span>{getFormattedAmount(totalBuyVolume + totalSellVolume)}</span></p>
                             </div>
 
-
                             <div className='chartboxs'>
                                 <div className='Pairmarket'>
                                     <h2>Pair Metrics</h2>
@@ -409,7 +416,6 @@ const PairShow = () => {
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     );

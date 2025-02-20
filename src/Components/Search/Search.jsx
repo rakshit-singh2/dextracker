@@ -34,7 +34,7 @@ export default function Search() {
 
     // Log results when they change
     useEffect(() => {
-        if (results) {
+        if (!results) {
             console.log(results);
         }
     }, [results]);
@@ -116,7 +116,7 @@ export default function Search() {
                 <input
                     type="text"
                     onChange={search}
-                    className="form-control text-black"
+                    className="form-control text-black bg-black text-white"
                     placeholder="Search for token, pair, wallet, ens, token address etc.."
                 />
             </div>
