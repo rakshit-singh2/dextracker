@@ -1,5 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,100..1000&display=swap');
+body{font-family: "Roboto Flex", serif;}
 :root {
  --bg-body: #131720;
  --bg-card: #171f2a;
@@ -449,18 +451,11 @@
 	border-collapse: collapse;
 	border-spacing: 0;
 	width: 100%;
-	margin-top:15px;
+	margin-top:8px;
 	display: inline-grid
 
 }
-.main-content .price-table th, .main-content .price-table td {
-	text-align: left;
-	padding:10px 8px 10px;
-	white-space: nowrap;
-	font-size:14px;
-    color: hsla(0, 0%, 100%, .95);
 
-}
 .main-content .price-table th:first-child, .main-content .price-table td:first-child {
 	text-align: left;
 }
@@ -1383,7 +1378,6 @@ thead tr th:nth-child(1) {position: sticky; left:0px;}
  .chartboxmain .col-md-4 {width: 100%;  margin-bottom: 23px;}
  .sticky-top {position: inherit !important; padding-top:13px !important; padding-bottom: 0px !important; overflow-x: scroll;}
  .page-content-wrapper .navbar{background-color:#2e3b4d !important;    height: 74px;}
- .main-content{margin-top: 10px !important;}
  .top {min-width: fit-content;}	
  .trending{min-width: 256px !important;}
  .copyrighttext {margin-left: 0px !important;}
@@ -2787,7 +2781,7 @@ thead tr th:nth-child(1) {position: sticky; left:0px; background:#2a374a;}*/
 	color:#f4f4f4;
 }
 .homepage p{ font-size:14px; color:#c2c7ce;}
-.mainchart  h1{ font-size:20px; margin-bottom:0px;}
+.mainchart  h1{font-size: 22px;margin-bottom: 15px; margin-top: 10px;}
 
 .has-search .form-control {
     padding-left: 2.375rem;
@@ -2966,7 +2960,6 @@ circle{fill: rgb(62, 191, 129) !important;}
  .chartboxmain .col-md-4 {width: 100%;  margin-bottom: 23px;}
  .sticky-top {position: inherit !important; padding-top:13px !important; padding-bottom: 0px !important; overflow-x: scroll;}
  .page-content-wrapper .navbar{background-color:#2e3b4d !important;    height: 74px;}
- .main-content{margin-top: 10px !important;}
  .top {min-width: fit-content;}	
  .trending{min-width: 256px !important;}
  .copyrighttext {margin-left: 0px !important;}

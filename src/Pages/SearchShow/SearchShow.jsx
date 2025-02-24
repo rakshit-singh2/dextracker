@@ -177,10 +177,14 @@ export default function SearchShow() {
                             )}
 
                             <ul>
-                                <Link to={metadata.website} target='_blank'><li><i className="fa fa-link"></i> Website</li></Link>
+                                <Link to={metadata.website} target='_blank'>
+                                    <li>
+                                        <i className="fa fa-link"></i> Website
+                                    </li>
+                                </Link>
                                 <li className='contracts'>
-                                    <i className="fa fa-search"></i> Contracts <i className="fa fa-angle-down"></i>
-
+                                    <i className="fa fa-search"></i> Contracts  
+                                    <i className="fa fa-angle-down"></i>
                                     <ul className='subnav mt-2'>
                                         {metadata.blockchains.map((blockchain, index) => (
                                             <li key={index}>
@@ -190,8 +194,6 @@ export default function SearchShow() {
                                             </li>
                                         ))}
                                     </ul>
-
-
                                 </li>
 
                                 <li className='contracts'>
@@ -211,14 +213,12 @@ export default function SearchShow() {
                                             ) : null
                                         ))}
                                     </ul>
-
                                 </li>
                             </ul>
                         </div>
                     </div>
 
                     <div className="tokendetailspage row px-3 px-md-4 py-3 py-lg-4 ">
-
                         <div className='col-md-8'>
                             <div className='dtab'>
                                 <button

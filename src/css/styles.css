@@ -457,8 +457,9 @@
 	text-align: left;
 	padding:10px 8px 10px;
 	white-space: nowrap;
-	font-size:14px;
+	font-size:13px;
     color: hsla(0, 0%, 100%, .95);
+	font-weight: 500 !important;
 
 }
 .main-content .price-table th:first-child, .main-content .price-table td:first-child {
@@ -1303,7 +1304,7 @@ table input[type=checkbox]:before, form input[type=checkbox]:before {
 
 
 .dropdown-content img{width:25px;}
-#nav_accordion .fw-semibold {font-weight: 500 !important; font-size: 15px;    padding-left: 4px;}
+#nav_accordion .fw-semibold {font-weight: 500 !important; font-size:14px;    padding-left: 4px; letter-spacing: 0.5px;}
 
 .drpbox .dropbtn {
 	background-color: #3ebf81;
@@ -1383,7 +1384,6 @@ thead tr th:nth-child(1) {position: sticky; left:0px;}
  .chartboxmain .col-md-4 {width: 100%;  margin-bottom: 23px;}
  .sticky-top {position: inherit !important; padding-top:13px !important; padding-bottom: 0px !important; overflow-x: scroll;}
  .page-content-wrapper .navbar{background-color:#2e3b4d !important;    height: 74px;}
- .main-content{margin-top: 10px !important;}
  .top {min-width: fit-content;}	
  .trending{min-width: 256px !important;}
  .copyrighttext {margin-left: 0px !important;}
@@ -1402,6 +1402,7 @@ thead tr th:nth-child(1) {position: sticky; left:0px;}
  .footer span{font-size: 14px;}
  .footer a{font-size: 14px;}
  .menu-toggle{padding-left: 6px;}
+ .main-content{margin-top:50px !important;}
 }
 
 @media only screen and (max-width: 400px) {
@@ -1478,7 +1479,7 @@ thead tr th:nth-child(1) {position: sticky; left:0px;}
 }
 @media (max-width: 991px) {
 .sidebar-wrapper .sidebar-heading {
-	margin-top: 70px;
+	margin-top:50px;
 }
 }
 .sidebar-wrapper .nav {
@@ -2844,9 +2845,9 @@ tspan{color:#fff !important;}
 .recharts-legend-item-text{color: rgb(62, 191, 129) !important;}
 path[Attributes Style] {    stroke: rgb(0 217 160) !important;}
 
-.tokenlogo{ width:70px; float:left;}
+.tokenlogo{ width:70px; float:left; border-radius:5px;}
 .tokenlogosection{ padding:0px 15px;}
-.tnames{margin-top: 19px; font-size:22px;}
+.tnames{margin-top:25px; font-size:22px;}
 .volume{
 	 background: rgb(62 191 129 / 40%);
     padding: 5px 10px;
@@ -2889,7 +2890,9 @@ path[Attributes Style] {    stroke: rgb(0 217 160) !important;}
 circle{fill: rgb(62, 191, 129) !important;}
 .chainbtn button{background:rgb(39 44 62); border: none; color: #fff; padding: 7px 15px; border-radius: 6px; margin-right:8px;}
 .chainbtn{ margin-top:15px;}
-.dtab button{background:rgb(39 44 62); border: none; color: #fff; padding: 7px 15px; border-radius: 6px; margin-right:8px;}
+.dtab button{background:rgb(39 44 62); border: none; color: #fff !important; padding: 7px 15px; border-radius: 6px; margin-right:8px;    font-size: 14px;}
+.dtab button:hover{background:#3e485c;}
+.main-content .price-table tr:hover{ background:#1e2438;}
 .subnav li{display: inline-block !important; width:100%; border-bottom: 1px solid #39404a; border-radius: 0px !important;}
 .tag ul li {
     background: #303446;
@@ -2927,7 +2930,6 @@ circle{fill: rgb(62, 191, 129) !important;}
  .chartboxmain .col-md-4 {width: 100%;  margin-bottom: 23px;}
  .sticky-top {position: inherit !important; padding-top:13px !important; padding-bottom: 0px !important; overflow-x: scroll;}
  .page-content-wrapper .navbar{background-color:#2e3b4d !important;    height: 74px;}
- .main-content{margin-top: 10px !important;}
  .top {min-width: fit-content;}	
  .trending{min-width: 256px !important;}
  .copyrighttext {margin-left: 0px !important;}
@@ -2939,14 +2941,19 @@ circle{fill: rgb(62, 191, 129) !important;}
  .main-content .price-table {overflow-x:scroll; height:auto !important; width:100%;}
  .outline-btn-big {min-width: auto;}
  .sticky-top{display: inline !important;}
- .mainchart{margin-top: 74px;}
+ .mainchart{margin-top:30px;}
  .sidebar-wrapper .sidebar-heading{padding: 15px 12px 0;}
  tbody tr td:nth-child(2) {position:inherit !important;}
  thead tr th:nth-child(2) {position:inherit !important;}
  .footer span{font-size: 14px;}
  .footer a{font-size: 14px;}
  .menu-toggle{padding-left: 6px;}
- .menutoggle{height: 50px; background: #2e3f5a;}
+ .menutoggle{height: 50px; background:#343e4e;}
+ .dtab{margin-bottom: 10px;}
+ .chbox{margin-left: 18px;}
+ .tnames{margin-top: 5px;}
+ .dlogos{ margin-top:20px;}
+ .chartboxs {margin-left: 0px;}
 }
 
 @media only screen and (max-width: 400px) {

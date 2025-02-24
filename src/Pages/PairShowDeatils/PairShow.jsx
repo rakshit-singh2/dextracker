@@ -218,9 +218,9 @@ const PairShow = () => {
             <div class="detailspage centercontent container-fluid main-content px-2">
                 <div className='tokenlogosection'>
                     <div className='row'>
-                        <div className='col-md-1'><img className='tokenlogo' src={data.pairData?.token0.logo} /></div>
-                        <div className='col-md-3'><h2 className='tnames'>{data.pairData?.token0.name} / {data.pairData?.token1.name} </h2></div>
-                        <div className='col-md-8'> <h2 className='tnames'>${formatNumber(data.pairData?.volume24h)} <span className='volume'>+1.09%</span></h2></div>
+                        <div className='col-md-1 dlogos'><img className='tokenlogo' src={data.pairData?.token0.logo} /></div>
+                        <div className='col-md-3 lname'><h2 className='tnames'>{data.pairData?.token0.name} / {data.pairData?.token1.name} </h2></div>
+                        <div className='col-md-8 linfo'> <h2 className='tnames'>${formatNumber(data.pairData?.volume24h)} <span className='volume'>+1.09%</span></h2></div>
                     </div>
 
                     <table class="table tokentable">

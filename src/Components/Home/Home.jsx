@@ -362,7 +362,7 @@ function Home() {
                             <div className="dtab mt-2">
                                 <button
                                     onClick={() => handleFilterClick('all')}
-                                    className={activeFilter === 'all' ? 'bg-blue text-white' : ''}  // Apply active class
+                                    className={activeFilter === 'all' ? 'bg-blue-500 text-white' : 'text-black'}  // Apply active class
                                 >
                                     All
                                 </button>
@@ -370,7 +370,7 @@ function Home() {
                                     <button
                                         key={index}
                                         onClick={() => handleFilterClick(type)}
-                                        className={activeFilter === type ? 'bg-blue text-white' : ''}  // Apply active class
+                                        className={activeFilter === type ? 'bg-blue-500 text-white' : 'text-black'}  // Apply active class
                                     >
                                         {type}
                                     </button>
